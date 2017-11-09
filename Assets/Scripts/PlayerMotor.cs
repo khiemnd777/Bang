@@ -23,13 +23,11 @@ public class PlayerMotor : MonoBehaviour
 
     public void MoveToPoint(Vector3 point)
     {
-        agent.isStopped = false;
         agent.SetDestination(point);
     }
 
     public void FollowTarget(Interactable newTarget)
     {
-        agent.isStopped             = false;
         agent.stoppingDistance      = newTarget.radius * .8f;
         agent.updateRotation        = false;   
         target                      = newTarget.interactionTransform;
@@ -40,11 +38,6 @@ public class PlayerMotor : MonoBehaviour
         agent.stoppingDistance      = 0f;
         agent.updateRotation        = true;
         target                      = null;
-    }
-
-    public void Stop()
-    {
-        agent.isStopped = true;
     }
 
     void FaceTarget()

@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         // If we release left mouse
         if(Input.GetMouseButtonUp(0)){
-            motor.Stop();
+            
         }
         // If we press left mouse
         if (Input.GetMouseButton(0))
