@@ -11,4 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73af7f77b48b7456f893d750826d30a6, type: 3}
   m_Name: Test Character 1
   m_EditorClassIdentifier: 
+  name: Character 2
+  health: 20
   icon: {fileID: 21300000, guid: 04e01e567d562472588281f898c954f1, type: 3}
+  skills:
+  - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}

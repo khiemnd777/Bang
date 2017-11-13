@@ -7,7 +7,7 @@ public class BattleFieldManager : MonoBehaviour
     #region Singleton
 
     static BattleFieldManager manager;
-    public BattleFieldManager instance
+    public static BattleFieldManager instance
     {
         get
         {
@@ -28,26 +28,36 @@ public class BattleFieldManager : MonoBehaviour
 
     public int numOfFields = 9;
 
-	public Character[] playerCharacters;
-	public Character[] opponentCharacters;
+    public Character[] characters;
+    public Character[] opponentCharacters;
 
-    public Transform playerField;
+    public Transform field;
     public Transform opponentField;
-	[Space]
-    FieldSlot[] playerFieldSlots;
-    FieldSlot[] opponentFieldSlots;
+    [Space]
+    [System.NonSerialized]
+    public FieldSlot[] fieldSlots;
+    [System.NonSerialized]
+    public FieldSlot[] opponentFieldSlots;
 
     void Start()
     {
-		CreateNewBattle();
+        CreateNewBattle();
     }
 
     public void CreateNewBattle()
     {
-        playerFieldSlots = playerField.GetComponentsInChildren<FieldSlot>();
-        for (var i = 0; i < playerCharacters.Length; i++)
+        // Player field slots
+        fieldSlots = field.GetComponentsInChildren<FieldSlot>();
+        for (var i = 0; i < characters.Length; i++)
         {
-            playerFieldSlots[i].AddField(playerCharacters[i]);
+            fieldSlots[i].AddField(characters[i]);
+        }
+
+        // Opponent field slots
+        opponentFieldSlots = opponentField.GetComponentsInChildren<FieldSlot>();
+        for (var i = 0; i < opponentCharacters.Length; i++)
+        {
+            opponentFieldSlots[i].AddField(opponentCharacters[i]);
         }
     }
 }

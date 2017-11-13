@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Image))]
-public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Image icon;
     public Color hoverColor;
@@ -131,11 +131,6 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 StartCoroutine(OnSlotMiss());
             }
         }
-    }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-
     }
 
     IEnumerator OnBeginDragging()
