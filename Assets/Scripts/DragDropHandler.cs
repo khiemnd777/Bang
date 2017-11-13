@@ -10,6 +10,9 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public Image icon;
     public Color hoverColor;
 
+    public delegate void OnDragged(GameObject item, bool isAlternative);
+    public OnDragged onDragged;
+
     DragDropHandler[] items;
     Color originalColor;
     Vector3 startPosition;
@@ -87,6 +90,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             lastDraggableIconPosition = draggableIcon.transform.position;
 
             DragDropHandler matchItem = null;
+            var isAlternative = false;
             foreach (var item in items)
             {
                 if (RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), Input.mousePosition))
@@ -100,6 +104,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                             icon.sprite = itemIconSprite;
                             icon.enabled = true;
+                            isAlternative = true;
                         }
                         else
                         {
@@ -117,6 +122,9 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 Destroy(draggableIcon.gameObject);
                 StartCoroutine(OnSlotMatch(matchItem, icon));
+                if(matchItem.onDragged != null){
+                    matchItem.onDragged.Invoke(this.gameObject, isAlternative);
+                }
             }
             else
             {
