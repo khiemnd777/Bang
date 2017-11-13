@@ -28,14 +28,14 @@ public class BattleFieldManager : MonoBehaviour
 
     public int numOfFields = 9;
 
-    public Character[] characters;
+    public Character[] playerCharacters;
     public Character[] opponentCharacters;
 
-    public Transform field;
+    public Transform playerField;
     public Transform opponentField;
     [Space]
     [System.NonSerialized]
-    public FieldSlot[] fieldSlots;
+    public FieldSlot[] playerFieldSlots;
     [System.NonSerialized]
     public FieldSlot[] opponentFieldSlots;
 
@@ -47,10 +47,10 @@ public class BattleFieldManager : MonoBehaviour
     public void CreateNewBattle()
     {
         // Player field slots
-        fieldSlots = field.GetComponentsInChildren<FieldSlot>();
-        for (var i = 0; i < characters.Length; i++)
+        playerFieldSlots = playerField.GetComponentsInChildren<FieldSlot>();
+        for (var i = 0; i < playerCharacters.Length; i++)
         {
-            fieldSlots[i].AddField(characters[i]);
+            playerFieldSlots[i].AddField(playerCharacters[i]);
         }
 
         // Opponent field slots
