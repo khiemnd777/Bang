@@ -526,7 +526,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 360194781}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -200.82603, y: 5.399994, z: 0}
+  m_LocalPosition: {x: -72.16556, y: 5.399994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1284368535}
@@ -990,8 +990,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 992645642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 634, y: 356.5, z: 0}
-  m_LocalScale: {x: 1.1883334, y: 1.1883334, z: 1.1883334}
+  m_LocalPosition: {x: 361, y: 267.5, z: 0}
+  m_LocalScale: {x: 0.89166665, y: 0.89166665, z: 0.89166665}
   m_Children:
   - {fileID: 360194782}
   m_Father: {fileID: 0}
@@ -1666,10 +1666,10 @@ MonoBehaviour:
   numOfFields: 9
   playerCharacters:
   - {fileID: 11400000, guid: 2df8263f46c8d496b9a7b202c0c3df3a, type: 2}
-  - {fileID: 11400000, guid: 2df8263f46c8d496b9a7b202c0c3df3a, type: 2}
-  - {fileID: 11400000, guid: 2df8263f46c8d496b9a7b202c0c3df3a, type: 2}
-  - {fileID: 11400000, guid: 2df8263f46c8d496b9a7b202c0c3df3a, type: 2}
-  - {fileID: 11400000, guid: 2df8263f46c8d496b9a7b202c0c3df3a, type: 2}
+  - {fileID: 11400000, guid: d4b9f7140c9ce204ea596a82019fd3ad, type: 2}
+  - {fileID: 11400000, guid: 5347615e5af37284692771ea6e9c5565, type: 2}
+  - {fileID: 11400000, guid: 906bb242443e03b4c85d044532dbabb7, type: 2}
+  - {fileID: 11400000, guid: 7e5f4ac3da2695046a6a71f6a6853b66, type: 2}
   opponentCharacters: []
   playerField: {fileID: 360194782}
   opponentField: {fileID: 0}
