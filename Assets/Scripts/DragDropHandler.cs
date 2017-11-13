@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Image))]
-public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Image icon;
     public Color hoverColor;
@@ -51,7 +51,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             isDrag = true;
             isEndDrag = false;
 
-            StartCoroutine(OnDragging());
+            StartCoroutine(OnBeginDragging());
         }
     }
 
@@ -62,7 +62,8 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             draggableIcon.transform.position = Input.mousePosition;
             foreach (var item in items)
             {
-                if (!RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), Input.mousePosition)){
+                if (!RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), Input.mousePosition))
+                {
                     item.transform.localScale = Vector3.one;
                     item.GetComponent<Image>().color = originalColor;
                     continue;
@@ -85,19 +86,51 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             endDragJourneyLength = Vector3.Distance(Vector3.one * 1.5f, Vector3.one);
             lastDraggableIconPosition = draggableIcon.transform.position;
 
-            StartCoroutine(OnEndDragging());
-        }
-        foreach (var item in items)
-        {
-            if (RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), Input.mousePosition)){
-                
+            DragDropHandler matchItem = null;
+            foreach (var item in items)
+            {
+                if (RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), Input.mousePosition))
+                {
+                    if (item != this)
+                    {
+                        if (item.icon.enabled)
+                        {
+                            var itemIconSprite = item.icon.sprite;
+                            item.icon.sprite = icon.sprite;
+
+                            icon.sprite = itemIconSprite;
+                            icon.enabled = true;
+                        }
+                        else
+                        {
+                            item.icon.sprite = icon.sprite;
+                            icon.enabled = false;
+                        }
+                        item.icon.enabled = true;
+                        matchItem = item;
+                    }
+                }
+                item.transform.localScale = Vector3.one;
+                item.GetComponent<Image>().color = originalColor;
             }
-            item.transform.localScale = Vector3.one;
-            item.GetComponent<Image>().color = originalColor;
+            if (matchItem != null)
+            {
+                Destroy(draggableIcon.gameObject);
+                StartCoroutine(OnSlotMatch(matchItem, icon));
+            }
+            else
+            {
+                StartCoroutine(OnSlotMiss());
+            }
         }
     }
 
-    IEnumerator OnDragging()
+    public void OnDrop(PointerEventData eventData)
+    {
+
+    }
+
+    IEnumerator OnBeginDragging()
     {
         var fracJourney = 0f;
         while (fracJourney < 1f)
@@ -109,7 +142,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
-    IEnumerator OnEndDragging()
+    IEnumerator OnSlotMiss()
     {
         var fracJourney = 0f;
         while (draggableIcon != null && fracJourney < 1f)
@@ -125,5 +158,21 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         if (draggableIcon != null)
             Destroy(draggableIcon.gameObject);
+    }
+
+    IEnumerator OnSlotMatch(DragDropHandler matchItem, Image currentIcon)
+    {
+        var fracJourney = 0f;
+        while (fracJourney < 1f)
+        {
+            var distCovered = (Time.time - startEndDragTime) * 5f;
+            fracJourney = distCovered / endDragJourneyLength;
+            if (currentIcon.enabled)
+                currentIcon.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, fracJourney);
+
+            matchItem.icon.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, fracJourney);
+
+            yield return null;
+        }
     }
 }
