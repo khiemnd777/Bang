@@ -6,8 +6,9 @@ public class Skill : MonoBehaviour
     public Sprite icon;
     public Character owner;
     
-    public virtual void Use() 
+    public virtual int[] Use() 
     {
         Debug.Log("Using skill " + name);
+        return new int[0];
     }
 }

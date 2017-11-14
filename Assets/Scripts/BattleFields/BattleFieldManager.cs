@@ -35,9 +35,6 @@ public class BattleFieldManager : MonoBehaviour
     public Transform playerField;
     public Transform opponentField;
 
-    [Space]
-    public Skill[] skills;
-
     [System.NonSerialized]
     public FieldSlot[] playerFieldSlots;
     [System.NonSerialized]
