@@ -18,4 +18,10 @@ public class Character : ScriptableObject
             skill.Use();
         }
     }
+
+    public void AddSkill(Skill skill)
+    {
+        skill.owner = this;
+        skills.Add(skill);
+    }
 }
