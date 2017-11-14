@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class Skill : MonoBehaviour
+public class EnemySkill : MonoBehaviour
 {
     new public string name = "New Skill";
     public Sprite icon;
-    public Character owner;
+    public Enemy owner;
     
     public virtual void Use() 
     {
-        Debug.Log("Using skill " + name);
+        Debug.Log("Enemy is using skill " + name);
     }
 }

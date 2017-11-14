@@ -40,7 +40,7 @@ public class BattleFieldManager : MonoBehaviour
     [System.NonSerialized]
     public FieldSlot[] playerFieldSlots;
     [System.NonSerialized]
-    public FieldSlot[] opponentFieldSlots;
+    public EnemyFieldSlot[] opponentFieldSlots;
 
     void Start()
     {
@@ -49,10 +49,18 @@ public class BattleFieldManager : MonoBehaviour
 
     public void CreateNewBattle()
     {
-        // Add skill for player's characters
-        foreach(var character in playerCharacters){
-            foreach(var skill in skills){
-                character.AddSkill(skill);
+        // Add skill for player's characters (It's a hijack)
+        foreach(var character in playerCharacters) {
+            character.ClearAllLearnedSkills();
+            foreach(var skill in character.skills) {
+                character.LearnSkill(skill);
+            }
+        }
+
+        // Add skill for enemy's characters (It's a hijack)
+        foreach(var enemy in enemies) {
+            foreach(var skill in enemy.skills) {
+                skill.owner = enemy;
             }
         }
 
@@ -61,6 +69,13 @@ public class BattleFieldManager : MonoBehaviour
         for (var i = 0; i < playerCharacters.Length; i++)
         {
             playerFieldSlots[i].AddField(playerCharacters[i]);
+        }
+
+        // Add character into player field slots
+        opponentFieldSlots = opponentField.GetComponentsInChildren<EnemyFieldSlot>();
+        for (var i = 0; i < playerCharacters.Length; i++)
+        {
+            opponentFieldSlots[i].AddField(enemies[i]);
         }
     }
 }
