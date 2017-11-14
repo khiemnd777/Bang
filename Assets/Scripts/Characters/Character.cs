@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Character", menuName = "Characters/New Character")]
-public class Character : ScriptableObject
+public class Character : MonoBehaviour
 {
     new public string name = "New Character";
     public float health;
@@ -20,6 +19,11 @@ public class Character : ScriptableObject
         }
     }
 
+    public void AddSkill(Skill skill)
+    {
+        skills.Add(skill);
+    }
+
     public void LearnSkill(Skill skill)
     {
         var learnedSkill = Instantiate<Skill>(skill, Vector3.zero, Quaternion.identity);
@@ -29,11 +33,5 @@ public class Character : ScriptableObject
 
     public void ClearAllLearnedSkills(){
         learnedSkills.Clear();
-    }
-
-    public void AddSkill(Skill skill)
-    {
-        skill.owner = this;
-        skills.Add(skill);
     }
 }

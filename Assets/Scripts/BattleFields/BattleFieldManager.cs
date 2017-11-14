@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleFieldManager : MonoBehaviour
 {
+
     #region Singleton
 
     static BattleFieldManager manager;
@@ -29,7 +30,7 @@ public class BattleFieldManager : MonoBehaviour
     public int numOfFields = 9;
 
     public Character[] playerCharacters;
-    public Enemy[] enemies;
+    public Character[] opponentCharacters;
     [Space]
     public Transform playerField;
     public Transform opponentField;
@@ -40,7 +41,7 @@ public class BattleFieldManager : MonoBehaviour
     [System.NonSerialized]
     public FieldSlot[] playerFieldSlots;
     [System.NonSerialized]
-    public EnemyFieldSlot[] opponentFieldSlots;
+    public FieldSlot[] opponentFieldSlots;
 
     void Start()
     {
@@ -58,9 +59,10 @@ public class BattleFieldManager : MonoBehaviour
         }
 
         // Add skill for enemy's characters (It's a hijack)
-        foreach(var enemy in enemies) {
-            foreach(var skill in enemy.skills) {
-                skill.owner = enemy;
+        foreach(var character in opponentCharacters) {
+            character.ClearAllLearnedSkills();
+            foreach(var skill in character.skills) {
+                character.LearnSkill(skill);
             }
         }
 
@@ -72,10 +74,10 @@ public class BattleFieldManager : MonoBehaviour
         }
 
         // Add character into player field slots
-        opponentFieldSlots = opponentField.GetComponentsInChildren<EnemyFieldSlot>();
+        opponentFieldSlots = opponentField.GetComponentsInChildren<FieldSlot>();
         for (var i = 0; i < playerCharacters.Length; i++)
         {
-            opponentFieldSlots[i].AddField(enemies[i]);
+            opponentFieldSlots[i].AddField(opponentCharacters[i]);
         }
     }
 }

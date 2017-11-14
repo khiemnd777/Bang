@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public Sprite icon;
 
 	public List<EnemySkill> skills = new List<EnemySkill>();
+	public List<EnemySkill> learnedSkills = new List<EnemySkill>();
 	
 	public void AddSkill(EnemySkill skill){
 		skill.owner = this;
