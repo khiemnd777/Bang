@@ -33,6 +33,7 @@ public class FieldSlot : MonoBehaviour
 			return;
         var priorityIndexes = character.learnedSkills[character.learnedSkills.Count - 1].Use();
 
+        // inactive priorityIndex
         foreach(var slot in BattleFieldManager.instance.playerFieldSlots){
             slot.priorityIndex.gameObject.SetActive(false);
         }
@@ -54,6 +55,7 @@ public class FieldSlot : MonoBehaviour
 
     void OnUpdateSlot(GameObject item, bool isAlternative)
     {
+        // inactive priorityIndex
         foreach(var slot in BattleFieldManager.instance.playerFieldSlots){
             slot.priorityIndex.gameObject.SetActive(false);
         }

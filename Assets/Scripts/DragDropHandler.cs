@@ -9,7 +9,9 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 {
     public Image icon;
     public Color hoverColor;
-
+    public bool isDrag;
+    public bool isEndDrag;
+    
     public delegate void OnDragged(GameObject item, bool isAlternative);
     public OnDragged onDragged;
 
@@ -20,8 +22,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     Vector3 lastDraggableIconPosition;
     Image draggableIcon;
     Canvas canvas;
-    bool isDrag;
-    bool isEndDrag;
+    
     float startDragTime;
     float startEndDragTime;
     float dragJourneyLength;

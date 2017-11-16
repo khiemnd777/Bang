@@ -6,6 +6,7 @@ public class Character : MonoBehaviour
 {
     new public string name = "New Character";
     public float health;
+    public float dexterity;
     public Sprite icon;
     public bool isEnemy;
     public List<Skill> skills = new List<Skill>();

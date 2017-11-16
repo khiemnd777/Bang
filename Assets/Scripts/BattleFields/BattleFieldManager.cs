@@ -34,6 +34,8 @@ public class BattleFieldManager : MonoBehaviour
     [Space]
     public Transform playerField;
     public Transform opponentField;
+    [Space]
+    public MarathonRunner marathonRunner;
 
     [System.NonSerialized]
     public FieldSlot[] playerFieldSlots;
@@ -53,6 +55,7 @@ public class BattleFieldManager : MonoBehaviour
             foreach(var skill in character.skills) {
                 character.LearnSkill(skill);
             }
+            marathonRunner.AddToCharacterArea(character);
         }
 
         // Add skill for enemy's characters (It's a hijack)
@@ -61,6 +64,7 @@ public class BattleFieldManager : MonoBehaviour
             foreach(var skill in character.skills) {
                 character.LearnSkill(skill);
             }
+            marathonRunner.AddToEnemyArea(character);
         }
 
         // Add character into player field slots
