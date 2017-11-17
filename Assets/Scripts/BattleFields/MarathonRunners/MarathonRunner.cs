@@ -13,16 +13,50 @@ public class MarathonRunner : MonoBehaviour
     List<CharacterRunner> characterRunners = new List<CharacterRunner>();
     List<CharacterRunner> enemyRunners = new List<CharacterRunner>();
 
+    bool isStopped = true;
+
+    void Update()
+    {
+        if(isStopped)
+            return;
+        OrderCharacterRunners(characterRunners);
+        OrderCharacterRunners(enemyRunners);
+    }
+
     public void AddToCharacterArea(Character character)
     {
         var runner = CreateRunner(character, characterArea);
         characterRunners.Add(runner);
+        runner = null;
     }
 
     public void AddToEnemyArea(Character character)
     {
         var runner = CreateRunner(character, enemyArea);
         enemyRunners.Add(runner);
+        runner = null;
+    }
+
+    public void StartOrStopRunner(){
+        if(isStopped){
+            StartRunner();
+        }else{
+            StopRunner();
+        }
+    }
+
+    public void StartRunner()
+    {
+        characterRunners.ForEach(x => x.StartRunning());
+        enemyRunners.ForEach(x => x.StartRunning());
+        isStopped = false;
+    }
+
+    public void StopRunner()
+    {
+        characterRunners.ForEach(x => x.StopRunning());
+        enemyRunners.ForEach(x => x.StopRunning());
+        isStopped = true;
     }
 
     CharacterRunner CreateRunner(Character character, Transform parent)
@@ -30,6 +64,8 @@ public class MarathonRunner : MonoBehaviour
         var runner = Instantiate<CharacterRunner>(characterRunnerPrefab, parent.position, Quaternion.identity, parent);
         runner.icon.sprite = character.icon;
         runner.character = character;
+
+        runner.onRunnerReachedCallback += OnSingleRunnerReachedCallback;
 
         var rt = runner.GetComponent<RectTransform>();
         rt.anchoredPosition = new Vector2(0f, 0f);
@@ -40,17 +76,20 @@ public class MarathonRunner : MonoBehaviour
         return runner;
     }
 
-    void Update(){
-        OrderCharacterRunners(characterRunners);
-        OrderCharacterRunners(enemyRunners);
+    void OnSingleRunnerReachedCallback(CharacterRunner runner){
+        Debug.Log(runner.character.name + " has reached!");
+        // StopRunner();
     }
 
-    void OrderCharacterRunners (List<CharacterRunner> characterRunners) {
-        var orderedCharacterRunners = characterRunners.OrderBy(x => {
+    void OrderCharacterRunners(List<CharacterRunner> characterRunners)
+    {
+        var orderedCharacterRunners = characterRunners.OrderBy(x =>
+        {
             return x.GetComponent<RectTransform>().anchoredPosition.x;
         }).ToArray();
 
-        for(var i = 0; i < orderedCharacterRunners.Length; i++){
+        for (var i = 0; i < orderedCharacterRunners.Length; i++)
+        {
             orderedCharacterRunners[i].transform.SetSiblingIndex(i);
         }
 

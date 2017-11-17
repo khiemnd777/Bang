@@ -80,5 +80,7 @@ public class BattleFieldManager : MonoBehaviour
         {
             opponentFieldSlots[i].AddField(opponentCharacters[i]);
         }
+
+        // marathonRunner.StartRunner();
     }
 }
