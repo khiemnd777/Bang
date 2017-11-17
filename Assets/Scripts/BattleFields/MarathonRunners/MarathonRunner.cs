@@ -11,36 +11,38 @@ public class MarathonRunner : MonoBehaviour
     public CharacterRunner characterRunnerPrefab;
 
     List<CharacterRunner> characterRunners = new List<CharacterRunner>();
-    List<CharacterRunner> enemyRunners = new List<CharacterRunner>();
 
     bool isStopped = true;
 
     void Update()
     {
-        if(isStopped)
+        if (isStopped)
             return;
         OrderCharacterRunners(characterRunners);
-        OrderCharacterRunners(enemyRunners);
     }
 
     public void AddToCharacterArea(Character character)
     {
         var runner = CreateRunner(character, characterArea);
-        characterRunners.Add(runner);
+        AddCharacterRunner(runner);
         runner = null;
     }
 
     public void AddToEnemyArea(Character character)
     {
         var runner = CreateRunner(character, enemyArea);
-        enemyRunners.Add(runner);
+        AddCharacterRunner(runner);
         runner = null;
     }
 
-    public void StartOrStopRunner(){
-        if(isStopped){
+    public void StartOrStopRunner()
+    {
+        if (isStopped)
+        {
             StartRunner();
-        }else{
+        }
+        else
+        {
             StopRunner();
         }
     }
@@ -48,18 +50,16 @@ public class MarathonRunner : MonoBehaviour
     public void StartRunner()
     {
         characterRunners.ForEach(x => x.StartRunning());
-        enemyRunners.ForEach(x => x.StartRunning());
         isStopped = false;
     }
 
     public void StopRunner()
     {
         characterRunners.ForEach(x => x.StopRunning());
-        enemyRunners.ForEach(x => x.StopRunning());
         isStopped = true;
     }
 
-    CharacterRunner CreateRunner(Character character, Transform parent)
+    public CharacterRunner CreateRunner(Character character, Transform parent)
     {
         var runner = Instantiate<CharacterRunner>(characterRunnerPrefab, parent.position, Quaternion.identity, parent);
         runner.icon.sprite = character.icon;
@@ -76,7 +76,13 @@ public class MarathonRunner : MonoBehaviour
         return runner;
     }
 
-    void OnSingleRunnerReachedCallback(CharacterRunner runner){
+    public void AddCharacterRunner(CharacterRunner characterRunner)
+    {
+        characterRunners.Add(characterRunner);
+    }
+
+    void OnSingleRunnerReachedCallback(CharacterRunner runner)
+    {
         Debug.Log(runner.character.name + " has reached!");
         // StopRunner();
     }
