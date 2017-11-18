@@ -12,7 +12,7 @@ public class MarathonRunner : MonoBehaviour
 
     List<CharacterRunner> characterRunners = new List<CharacterRunner>();
 
-    bool isStopped = true;
+    public bool isStopped = true;
 
     void Update()
     {
@@ -65,7 +65,9 @@ public class MarathonRunner : MonoBehaviour
         runner.icon.sprite = character.icon;
         runner.character = character;
 
+        // register event of reached
         runner.onRunnerReachedCallback += OnSingleRunnerReachedCallback;
+        character.onTacticHandledCallback += OnTacticHandledCallback;
 
         var rt = runner.GetComponent<RectTransform>();
         rt.anchoredPosition = new Vector2(0f, 0f);
@@ -83,8 +85,13 @@ public class MarathonRunner : MonoBehaviour
 
     void OnSingleRunnerReachedCallback(CharacterRunner runner)
     {
-        Debug.Log(runner.character.name + " has reached!");
-        // StopRunner();
+        // Debug.Log(runner.character.name + " has reached!");
+    }
+
+    void OnTacticHandledCallback(Character character)
+    {
+        // Start runner after tactic process of character is finished
+        StartRunner();
     }
 
     void OrderCharacterRunners(List<CharacterRunner> characterRunners)

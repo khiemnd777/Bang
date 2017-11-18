@@ -127,7 +127,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 104.70009
+      value: -0.30000305
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -251,7 +251,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.3000641
+      value: -105.3
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -481,6 +481,21 @@ Prefab:
       propertyPath: m_Name
       value: Field (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114672271837990598, guid: eada6b7dae80c4d8abb1c4347da0535e,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114672271837990598, guid: eada6b7dae80c4d8abb1c4347da0535e,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114672271837990598, guid: eada6b7dae80c4d8abb1c4347da0535e,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eada6b7dae80c4d8abb1c4347da0535e, type: 2}
   m_IsPrefabParent: 0
@@ -499,12 +514,12 @@ Prefab:
     - target: {fileID: 224024531464669244, guid: 3faac38d544af4ad1ba4b390dfd76d47,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.000015258789
+      value: 14.5
       objectReference: {fileID: 0}
     - target: {fileID: 224024531464669244, guid: 3faac38d544af4ad1ba4b390dfd76d47,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.0000047683716
+      value: -175.3
       objectReference: {fileID: 0}
     - target: {fileID: 224024531464669244, guid: 3faac38d544af4ad1ba4b390dfd76d47,
         type: 2}
@@ -539,17 +554,17 @@ Prefab:
     - target: {fileID: 224024531464669244, guid: 3faac38d544af4ad1ba4b390dfd76d47,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0000095367
+      value: 14.5
       objectReference: {fileID: 0}
     - target: {fileID: 224024531464669244, guid: 3faac38d544af4ad1ba4b390dfd76d47,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000047684
+      value: -175.3
       objectReference: {fileID: 0}
     - target: {fileID: 224024531464669244, guid: 3faac38d544af4ad1ba4b390dfd76d47,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 441.3
+      value: 772.8
       objectReference: {fileID: 0}
     - target: {fileID: 224024531464669244, guid: 3faac38d544af4ad1ba4b390dfd76d47,
         type: 2}
@@ -623,15 +638,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 69726711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -140.65, y: 56, z: 0}
+  m_LocalPosition: {x: -306.05, y: 55.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2141093730}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -140.65, y: 56}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 80.350006, y: 47}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &69726713
@@ -718,9 +733,11 @@ MonoBehaviour:
   dexterity: 19
   icon: {fileID: 21300000, guid: 04e01e567d562472588281f898c954f1, type: 3}
   isEnemy: 0
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!1 &136218684
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,9 +964,11 @@ MonoBehaviour:
   dexterity: 9
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isEnemy: 1
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!1001 &293667370
 Prefab:
   m_ObjectHideFlags: 0
@@ -960,7 +979,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -93.600006
+      value: -105.3
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -1063,7 +1082,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 981528784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -219.3333, y: 0, z: 0}
+  m_LocalPosition: {x: -210.23308, y: 74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 293667371}
@@ -1080,7 +1099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 314, y: -300}
+  m_AnchoredPosition: {x: 323, y: -226}
   m_SizeDelta: {x: 340.6, y: 339.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &422058732
@@ -1128,9 +1147,11 @@ MonoBehaviour:
   dexterity: 9
   icon: {fileID: 21300000, guid: 3839bef9aa3f3475eb19172a7b326865, type: 3}
   isEnemy: 0
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!1001 &449783695
 Prefab:
   m_ObjectHideFlags: 0
@@ -1141,7 +1162,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -105.29997
+      value: 104.7
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -1330,7 +1351,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 104.70003
+      value: -105.3
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -1454,7 +1475,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -105.30002
+      value: -0.30000305
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -1578,7 +1599,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.3000641
+      value: -105.3
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -1735,7 +1756,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.2999878
+      value: 104.7
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -1867,7 +1888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &981528785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2009,8 +2030,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 992645642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 360, y: 202.5, z: 0}
-  m_LocalScale: {x: 0.675, y: 0.675, z: 0.675}
+  m_LocalPosition: {x: 591, y: 332.5, z: 0}
+  m_LocalScale: {x: 1.1083333, y: 1.1083333, z: 1.1083333}
   m_Children:
   - {fileID: 360194782}
   - {fileID: 1587156430}
@@ -2034,7 +2055,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -105.29997
+      value: 104.7
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -2193,9 +2214,11 @@ MonoBehaviour:
   dexterity: 14
   icon: {fileID: 21300000, guid: a10f65f777bf64040aca8dcfac6cd4d9, type: 3}
   isEnemy: 0
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!1001 &1161885192
 Prefab:
   m_ObjectHideFlags: 0
@@ -2206,7 +2229,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -105.30002
+      value: -0.30000305
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -2345,7 +2368,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1294056412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.000015258789, y: -112, z: 0}
+  m_LocalPosition: {x: 23, y: -265, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 215283564}
@@ -2354,7 +2377,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000014693, y: -112}
+  m_AnchoredPosition: {x: 23, y: -265}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1294056414
@@ -2452,7 +2475,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 104.70009
+      value: -0.30000305
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -2673,9 +2696,11 @@ MonoBehaviour:
   dexterity: 18
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isEnemy: 0
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!1001 &1410505768
 Prefab:
   m_ObjectHideFlags: 0
@@ -2686,7 +2711,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.2999878
+      value: 104.7
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -2824,15 +2849,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1428732158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -140.65, y: -59, z: 0}
+  m_LocalPosition: {x: -306.05, y: -59.050003, z: 0}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_Children: []
   m_Father: {fileID: 2141093730}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -140.65, y: -59}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 80.350006, y: -68}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1428732160
@@ -2919,9 +2944,11 @@ MonoBehaviour:
   dexterity: 10
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isEnemy: 1
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!1001 &1555728735
 Prefab:
   m_ObjectHideFlags: 0
@@ -2932,7 +2959,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -93.600006
+      value: 104.7
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -3072,9 +3099,11 @@ MonoBehaviour:
   dexterity: 13
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isEnemy: 1
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!1 &1581171627
 GameObject:
   m_ObjectHideFlags: 0
@@ -3120,9 +3149,11 @@ MonoBehaviour:
   dexterity: 15
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isEnemy: 1
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!224 &1587156430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3131,7 +3162,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2047544688}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 236.66669, y: 0, z: 0}
+  m_LocalPosition: {x: 246.7669, y: 74, z: 0}
   m_LocalScale: {x: 0.99999714, y: 0.99999714, z: 0.99999714}
   m_Children:
   - {fileID: 1555728736}
@@ -3148,7 +3179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 770, y: -300}
+  m_AnchoredPosition: {x: 780, y: -226}
   m_SizeDelta: {x: 340.6, y: 339.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1685831188
@@ -3161,7 +3192,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 104.70003
+      value: -105.3
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -3320,9 +3351,11 @@ MonoBehaviour:
   dexterity: 8
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isEnemy: 1
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!1001 &1696504320
 Prefab:
   m_ObjectHideFlags: 0
@@ -3333,7 +3366,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -105.29997
+      value: -0.30000305
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -3572,9 +3605,11 @@ MonoBehaviour:
   dexterity: 11
   icon: {fileID: 21300000, guid: 14c06f8b9e7cd49e7a0fb14c72e4bab2, type: 3}
   isEnemy: 0
+  isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
   learnedSkills: []
+  tactics: []
 --- !u!1001 &2017612709
 Prefab:
   m_ObjectHideFlags: 0
@@ -3585,7 +3620,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -105.30002
+      value: -0.30000305
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -3717,7 +3752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2047544689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3787,7 +3822,7 @@ Prefab:
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.2999878
+      value: 104.7
       objectReference: {fileID: 0}
     - target: {fileID: 224503251044402744, guid: eada6b7dae80c4d8abb1c4347da0535e,
         type: 2}
@@ -3925,7 +3960,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2132699788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 220.95, y: -0.000005722046, z: 0}
+  m_LocalPosition: {x: 386.69998, y: -0.000005722046, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6065745}
@@ -3933,7 +3968,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.80000305, y: -0.0000058115}
+  m_AnchoredPosition: {x: 0.7999878, y: -0.0000058115}
   m_SizeDelta: {x: 18.7, y: 17.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2132699790
@@ -4008,13 +4043,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numOfFields: 9
-  playerCharacters:
+  characters:
   - {fileID: 106014586}
   - {fileID: 1055906618}
   - {fileID: 422058734}
   - {fileID: 1375030895}
   - {fileID: 2003430898}
-  opponentCharacters:
   - {fileID: 1451509095}
   - {fileID: 1564884477}
   - {fileID: 235596518}

@@ -2,20 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DefaultSkill : Skill
 {
-    public override int[] Use()
+    public override IEnumerator Use()
     {
-        base.Use();
-        
-        var ownFieldSlots = !owner.isEnemy
-            ? BattleFieldManager.instance.playerFieldSlots
-            : BattleFieldManager.instance.opponentFieldSlots;
+        yield return base.Use();
+        var positions = FindPriorityPositions();
+        var opponentFieldSlots = GetOpponentFieldSlots();
+        var opponentFieldSlot = opponentFieldSlots[positions[0]];
+        var opponentImage = opponentFieldSlot.GetComponent<Image>();
+        var ownFieldSlot = GetOwnFieldSlot();
+        var ownImage = ownFieldSlot.GetComponent<Image>();
 
-        var opponentFieldSlots = !owner.isEnemy
-            ? BattleFieldManager.instance.opponentFieldSlots
-            : BattleFieldManager.instance.playerFieldSlots;
+        opponentImage.color = markColor;
+        ownImage.color = selectColor;
+        
+        yield return new WaitForSeconds(.125f);
+
+        opponentImage.color = Color.white;
+        ownImage.color = Color.white;
+        
+        opponentImage = null;
+        ownImage = null;
+        positions = null;
+        opponentFieldSlots = null;
+        opponentFieldSlot = null;
+        StopCoroutine("Using");
+    }
+
+    public override int[] FindPriorityPositions()
+    {
+        var ownFieldSlots = GetFieldSlots();
+        var opponentFieldSlots = GetOpponentFieldSlots();
 
         var currentOwnCol = 0;
         var currentOwnRow = 0;
@@ -43,9 +63,10 @@ public class DefaultSkill : Skill
             {
                 priorityIndexes.Add(index);
             }
-            if(index % 3 == 0){
+            if (index % 3 == 0)
+            {
                 ++currentOwnRow;
-                if(currentOwnRow > 2)
+                if (currentOwnRow > 2)
                     currentOwnRow = 0;
                 index = 3 * currentOwnRow + 2;
                 continue;

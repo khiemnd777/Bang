@@ -58,8 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 114642111584107714}
-  character: {fileID: 0}
-  deltaSpeed: 0.25
+  deltaSpeed: 0.5
   deltaScale: 1.25
 --- !u!114 &114642111584107714
 MonoBehaviour:

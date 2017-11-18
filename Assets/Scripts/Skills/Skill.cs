@@ -1,14 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill : MonoBehaviour
+public class Skill : Tactical
 {
     new public string name = "New Skill";
     public Sprite icon;
-    public Character owner;
+    public Color markColor;
+    public Color selectColor;
     
-    public virtual int[] Use() 
+    public override IEnumerator Use() 
     {
-        Debug.Log("Using skill " + name);
-        return new int[0];
+        Debug.Log(owner.name + " is using skill " + name);
+        yield return base.Use();
     }
 }

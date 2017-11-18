@@ -5,6 +5,7 @@ public class FieldSlot : MonoBehaviour
 {
     public Image icon;
     public Image priorityIndex;
+    [System.NonSerialized]
     public Character character;
 
     DragDropHandler dragDropHandler;
@@ -29,28 +30,33 @@ public class FieldSlot : MonoBehaviour
     }
 
     public void OnUseButtonClick(){
-		if(character == null)
-			return;
-        var priorityIndexes = character.learnedSkills[character.learnedSkills.Count - 1].Use();
+		// if(character == null)
+		// 	return;
 
-        // inactive priorityIndex
-        foreach(var slot in BattleFieldManager.instance.playerFieldSlots){
-            slot.priorityIndex.gameObject.SetActive(false);
-        }
-        foreach(var slot in BattleFieldManager.instance.opponentFieldSlots){
-            slot.priorityIndex.gameObject.SetActive(false);
-        }
+        // var lastLearnedSkill = character.learnedSkills[character.learnedSkills.Count - 1];
+        // lastLearnedSkill.Use();
 
-        var fieldSlots = character.isEnemy ? BattleFieldManager.instance.playerFieldSlots : BattleFieldManager.instance.opponentFieldSlots;
-        for(var i = 0; i < fieldSlots.Length; i++){
-            for(var ii = 0; ii < priorityIndexes.Length; ii++){
-                if(i != priorityIndexes[ii])
-                    continue;
-                var fieldSlot = fieldSlots[i];
-                fieldSlot.priorityIndex.gameObject.SetActive(true);
-                fieldSlot.priorityIndex.GetComponentInChildren<Text>().text = (ii + 1).ToString();
-            }
-        }
+        // // inactive priorityIndex
+        // foreach(var slot in BattleFieldManager.instance.playerFieldSlots){
+        //     slot.priorityIndex.gameObject.SetActive(false);
+        // }
+        // foreach(var slot in BattleFieldManager.instance.opponentFieldSlots){
+        //     slot.priorityIndex.gameObject.SetActive(false);
+        // }
+
+        // var fieldSlots = character.isEnemy ? BattleFieldManager.instance.playerFieldSlots : BattleFieldManager.instance.opponentFieldSlots;
+        // for(var i = 0; i < fieldSlots.Length; i++){
+        //     for(var ii = 0; ii < lastLearnedSkill.priorityPositions.Length; ii++){
+        //         if(i != lastLearnedSkill.priorityPositions[ii])
+        //             continue;
+        //         var fieldSlot = fieldSlots[i];
+        //         fieldSlot.priorityIndex.gameObject.SetActive(true);
+        //         fieldSlot.priorityIndex.GetComponentInChildren<Text>().text = (ii + 1).ToString();
+        //         fieldSlot = null;
+        //     }
+        // }
+        // fieldSlots = null;
+        // lastLearnedSkill = null;
 	}
 
     void OnUpdateSlot(GameObject item, bool isAlternative)

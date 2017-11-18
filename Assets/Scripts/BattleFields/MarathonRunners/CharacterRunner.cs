@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class CharacterRunner : MonoBehaviour
 {
     public Image icon;
-    public Character character;
     [Range(0f, 1f)]
-    public float deltaSpeed = 0.325f;
+    public float deltaSpeed = .5f;
     [Range(1f, 2f)]
     public float deltaScale = 1.25f;
+    [System.NonSerialized]
+    public Character character;
 
+    // invoked if the runner has reached
     public delegate void OnRunnerReached(CharacterRunner runner);
     public OnRunnerReached onRunnerReachedCallback;
 
@@ -20,6 +22,7 @@ public class CharacterRunner : MonoBehaviour
     RectTransform rectTransform;
     float startTime;
     bool isStopped = true;
+    float percent;
 
     void Start()
     {
@@ -50,18 +53,24 @@ public class CharacterRunner : MonoBehaviour
 
     void Run()
     {
+        // run if non-stop
         if (isStopped)
             return;
+        // check character is in turn. True if it reachs
+        character.isTurn = false;
         transform.localScale = Vector3.one;
+        // Move position towards the end of road
         var journeyLength = runnerRectTranform.GetWidth();
         var targetAnchoredPosition = new Vector2(journeyLength, 0f);
-        var step = character.dexterity * deltaSpeed;
-        rectTransform.anchoredPosition = rectTransform.anchoredPosition.x >= targetAnchoredPosition.x
-            ? Vector2.zero
-            : Vector2.MoveTowards(rectTransform.anchoredPosition, targetAnchoredPosition, step);
 
-        if (rectTransform.anchoredPosition.x >= targetAnchoredPosition.x)
+        percent += character.dexterity * deltaSpeed / 1000f;
+
+        rectTransform.anchoredPosition = Vector2.Lerp(Vector2.zero, targetAnchoredPosition, percent);
+
+        if (percent >= 1f)
         {
+            percent = 0f;
+            character.isTurn = true;
             transform.localScale = Vector3.one * deltaScale;
             if (onRunnerReachedCallback != null)
             {
