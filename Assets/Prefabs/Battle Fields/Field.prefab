@@ -232,8 +232,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4835761ef02c4a238a3127fd8159ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useIcon: 1
   icon: {fileID: 114296220260906870}
   hoverColor: {r: 0.8308824, g: 0.8308824, b: 0.8308824, a: 1}
+  isDrag: 0
+  isEndDrag: 0
 --- !u!114 &114672271837990598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -274,7 +277,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114296220260906870}
   priorityIndex: {fileID: 114110279862666004}
-  character: {fileID: 0}
 --- !u!222 &222050771594746896
 CanvasRenderer:
   m_ObjectHideFlags: 1
