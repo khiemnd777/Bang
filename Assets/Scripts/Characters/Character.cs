@@ -14,9 +14,13 @@ public class Character : MonoBehaviour
     public List<Skill> skills = new List<Skill>();
     public List<Skill> learnedSkills = new List<Skill>();
     public List<Tactical> tactics = new List<Tactical>();
+    public List<Ability> abilities = new List<Ability>();
 
     public delegate void OnTacticHandled(Character character);
     public OnTacticHandled onTacticHandledCallback;
+
+    public delegate void OnAbilityHandled(Character character);
+    public OnAbilityHandled onAbilityHandledCallback;
 
     public void AddSkill(Skill skill)
     {
@@ -50,6 +54,38 @@ public class Character : MonoBehaviour
     public void HandleTactics()
     {
         StartCoroutine(OnTacticHandling(this));
+    }
+
+    public void AddAbility(Ability ability)
+    {
+        abilities.Add(ability);
+    }
+
+    public void ClearAllAbilities()
+    {
+        abilities.Clear();
+    }
+
+    public void HandleAbilities()
+    {
+        StartCoroutine(OnAbilityHandling(this));
+    }
+
+    IEnumerator OnAbilityHandling(Character owner)
+    {
+        foreach (var ability in owner.abilities)
+        {
+            yield return StartCoroutine(ability.Use());
+            ability.StopCoroutine("Use");
+        }
+
+        owner.isTurn = false;
+
+        if (owner.onAbilityHandledCallback != null)
+            owner.onAbilityHandledCallback.Invoke(owner);
+
+        owner.StopCoroutine("OnAbilityHandling");
+        owner = null;
     }
 
     IEnumerator OnTacticHandling(Character owner)

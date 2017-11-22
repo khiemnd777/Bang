@@ -8,7 +8,8 @@ public class DefaultSkill : Skill
 {
     public override IEnumerator Use()
     {
-        yield return base.Use();
+        base.Use();
+
         var positions = FindPriorityPositions();
         var opponentFieldSlots = GetOpponentFieldSlots();
         var opponentFieldSlot = opponentFieldSlots[positions[0]];
@@ -29,7 +30,6 @@ public class DefaultSkill : Skill
         positions = null;
         opponentFieldSlots = null;
         opponentFieldSlot = null;
-        StopCoroutine("Using");
     }
 
     public override int[] FindPriorityPositions()

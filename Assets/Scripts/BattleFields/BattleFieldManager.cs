@@ -75,7 +75,7 @@ public class BattleFieldManager : MonoBehaviour
             foreach (var skill in character.skills)
             {
                 var learnedSkill = character.LearnSkill(skill);
-                character.AddTactic(learnedSkill);
+                character.AddAbility(learnedSkill);
             }
             if (!character.isEnemy)
             {

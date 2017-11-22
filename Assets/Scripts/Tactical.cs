@@ -5,31 +5,9 @@ using UnityEngine;
 
 public class Tactical : MonoBehaviour
 {
-    public Character owner;
-    public bool isUsing;
-
-    protected FieldSlot[] GetFieldSlots()
-    {
-        var ownFieldSlots = !owner.isEnemy
-            ? BattleFieldManager.instance.playerFieldSlots
-            : BattleFieldManager.instance.opponentFieldSlots;
-        return ownFieldSlots;
-    }
-
-    protected FieldSlot[] GetOpponentFieldSlots()
-    {
-        var opponentFieldSlots = !owner.isEnemy
-            ? BattleFieldManager.instance.opponentFieldSlots
-            : BattleFieldManager.instance.playerFieldSlots;
-        return opponentFieldSlots;
-    }
-
-    protected FieldSlot GetOwnFieldSlot(){
-        var fieldSlots = GetFieldSlots();
-        var single = fieldSlots.FirstOrDefault(x => x.character == owner);
-        fieldSlots = null;
-        return single;
-    }
+    public Ability ability;
+    public Tactical owner;
+    public List<Tactical> tactics = new List<Tactical>();
 
     public virtual IEnumerator Use()
     {
@@ -39,5 +17,11 @@ public class Tactical : MonoBehaviour
     public virtual int[] FindPriorityPositions()
     {
         return null;
+    }
+
+    public void AddTactic(Tactical tactic){
+        tactic.owner = this;
+        tactic.ability = ability;
+        tactics.Add(tactic);
     }
 }
