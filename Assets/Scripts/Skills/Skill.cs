@@ -9,9 +9,9 @@ public class Skill : Ability
     public Color markColor;
     public Color selectColor;
     
-    public override IEnumerator Use() 
+    public override IEnumerator Use(Tactical tactic) 
     {
-        Debug.Log(owner.name + " is using skill " + name);
-        yield return base.Use();
+        Debug.Log(character.name + " is using skill " + name);
+        yield return base.Use(tactic);
     }
 }

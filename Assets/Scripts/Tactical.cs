@@ -5,18 +5,15 @@ using UnityEngine;
 
 public class Tactical : MonoBehaviour
 {
+    public bool isDefault;
     public Ability ability;
     public Tactical owner;
     public List<Tactical> tactics = new List<Tactical>();
+    public int[] priorityPositions;
 
-    public virtual IEnumerator Use()
+    public virtual bool Define()
     {
-        yield return null;
-    }
-
-    public virtual int[] FindPriorityPositions()
-    {
-        return null;
+        return false;
     }
 
     public void AddTactic(Tactical tactic){

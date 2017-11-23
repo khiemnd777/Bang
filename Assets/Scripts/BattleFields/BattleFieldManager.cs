@@ -61,7 +61,7 @@ public class BattleFieldManager : MonoBehaviour
         if(singleCharacterInTurn != null){
             Debug.Log(singleCharacterInTurn.name + " has been turned!");
             marathonRunner.StopRunner();
-            singleCharacterInTurn.HandleTactics();
+            singleCharacterInTurn.HandleAbilities();
         }
     }
 

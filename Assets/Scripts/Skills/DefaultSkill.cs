@@ -6,11 +6,10 @@ using UnityEngine.UI;
 
 public class DefaultSkill : Skill
 {
-    public override IEnumerator Use()
+    public override IEnumerator Use(Tactical tactic)
     {
-        base.Use();
-
-        var positions = FindPriorityPositions();
+        base.Use(tactic);
+        var positions = tactic.priorityPositions;
         var opponentFieldSlots = GetOpponentFieldSlots();
         var opponentFieldSlot = opponentFieldSlots[positions[0]];
         var opponentImage = opponentFieldSlot.GetComponent<Image>();
@@ -30,53 +29,5 @@ public class DefaultSkill : Skill
         positions = null;
         opponentFieldSlots = null;
         opponentFieldSlot = null;
-    }
-
-    public override int[] FindPriorityPositions()
-    {
-        var ownFieldSlots = GetFieldSlots();
-        var opponentFieldSlots = GetOpponentFieldSlots();
-
-        var currentOwnCol = 0;
-        var currentOwnRow = 0;
-
-        for (var i = 0; i < ownFieldSlots.Length; i++)
-        {
-            if (i > 0 && i % 3 == 0)
-            {
-                ++currentOwnRow;
-                currentOwnCol = 0;
-            }
-            else
-            {
-                ++currentOwnCol;
-            }
-            if (ownFieldSlots[i].character == owner)
-                break;
-        }
-
-        var index = 3 * currentOwnRow + 2;
-        var priorityIndexes = new List<int>();
-        for (var i = 0; i < 9; i++)
-        {
-            if (!opponentFieldSlots[index].character.IsNull())
-            {
-                priorityIndexes.Add(index);
-            }
-            if (index % 3 == 0)
-            {
-                ++currentOwnRow;
-                if (currentOwnRow > 2)
-                    currentOwnRow = 0;
-                index = 3 * currentOwnRow + 2;
-                continue;
-            }
-            --index;
-        }
-
-        ownFieldSlots = null;
-        opponentFieldSlots = null;
-
-        return priorityIndexes.ToArray();
     }
 }

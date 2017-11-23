@@ -67,7 +67,6 @@ public class MarathonRunner : MonoBehaviour
 
         // register event of reached
         runner.onRunnerReachedCallback += OnSingleRunnerReachedCallback;
-        character.onTacticHandledCallback += OnTacticHandledCallback;
         character.onAbilityHandledCallback += OnAbilityHandledCallback;
 
         var rt = runner.GetComponent<RectTransform>();
@@ -87,12 +86,6 @@ public class MarathonRunner : MonoBehaviour
     void OnSingleRunnerReachedCallback(CharacterRunner runner)
     {
         // Debug.Log(runner.character.name + " has reached!");
-    }
-
-    void OnTacticHandledCallback(Character character)
-    {
-        // Start runner after tactic process of character is finished
-        StartRunner();
     }
 
     void OnAbilityHandledCallback(Character character)

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,15 +10,13 @@ public class Character : MonoBehaviour
     [Header("Stats")]
     public float dexterity;
     public Sprite icon;
+    public bool isDeath;
     public bool isEnemy;
     public bool isTurn;
     public List<Skill> skills = new List<Skill>();
     public List<Skill> learnedSkills = new List<Skill>();
     public List<Tactical> tactics = new List<Tactical>();
     public List<Ability> abilities = new List<Ability>();
-
-    public delegate void OnTacticHandled(Character character);
-    public OnTacticHandled onTacticHandledCallback;
 
     public delegate void OnAbilityHandled(Character character);
     public OnAbilityHandled onAbilityHandledCallback;
@@ -31,7 +30,7 @@ public class Character : MonoBehaviour
     {
         var learnedSkill = Instantiate<Skill>(skill, Vector3.zero, Quaternion.identity);
         learnedSkill.transform.SetParent(transform);
-        learnedSkill.owner = this;
+        learnedSkill.character = this;
         learnedSkills.Add(learnedSkill);
         return learnedSkill;
     }
@@ -51,11 +50,6 @@ public class Character : MonoBehaviour
         tactics.Clear();
     }
 
-    public void HandleTactics()
-    {
-        StartCoroutine(OnTacticHandling(this));
-    }
-
     public void AddAbility(Ability ability)
     {
         abilities.Add(ability);
@@ -73,10 +67,24 @@ public class Character : MonoBehaviour
 
     IEnumerator OnAbilityHandling(Character owner)
     {
-        foreach (var ability in owner.abilities)
+        var validAbilities = owner.abilities
+            .Where(x =>
+                x.tactics.Any(x1 => x1.Define()));
+        
+        foreach (var ability in validAbilities.Where(x => x.tactics.Any(x1 => !x1.isDefault)))
         {
-            yield return StartCoroutine(ability.Use());
+            var tactic = ability.tactics.FirstOrDefault();
+            yield return StartCoroutine(ability.Use(tactic));
             ability.StopCoroutine("Use");
+            break;
+        }
+
+        foreach (var ability in validAbilities.Where(x => x.tactics.Any(x1 => x1.isDefault)))
+        {
+            var tactic = ability.tactics.FirstOrDefault();
+            yield return StartCoroutine(ability.Use(tactic));
+            ability.StopCoroutine("Use");
+            break;
         }
 
         owner.isTurn = false;
@@ -84,24 +92,9 @@ public class Character : MonoBehaviour
         if (owner.onAbilityHandledCallback != null)
             owner.onAbilityHandledCallback.Invoke(owner);
 
+        validAbilities = null;
+
         owner.StopCoroutine("OnAbilityHandling");
-        owner = null;
-    }
-
-    IEnumerator OnTacticHandling(Character owner)
-    {
-        foreach (var tactic in owner.tactics)
-        {
-            yield return StartCoroutine(tactic.Use());
-            tactic.StopCoroutine("Use");
-        }
-
-        owner.isTurn = false;
-
-        if (owner.onTacticHandledCallback != null)
-            owner.onTacticHandledCallback.Invoke(owner);
-
-        owner.StopCoroutine("OnTacticHandling");
         owner = null;
     }
 }
