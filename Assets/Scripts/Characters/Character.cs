@@ -28,9 +28,12 @@ public class Character : MonoBehaviour
 
     public Skill LearnSkill(Skill skill)
     {
-        var learnedSkill = Instantiate<Skill>(skill, Vector3.zero, Quaternion.identity);
-        learnedSkill.transform.SetParent(transform);
+        var learnedSkill = Instantiate<Skill>(skill, Vector3.zero, Quaternion.identity, transform);
+        // default tactic is always in tactic list
+        var defaultTactic = Instantiate<Tactical>(learnedSkill.defaultTacticPrefab, Vector3.zero, Quaternion.identity, learnedSkill.transform);
         learnedSkill.character = this;
+        // add default tactic into list
+        learnedSkill.AddTactic(defaultTactic);
         learnedSkills.Add(learnedSkill);
         return learnedSkill;
     }
@@ -70,21 +73,26 @@ public class Character : MonoBehaviour
         var validAbilities = owner.abilities
             .Where(x =>
                 x.tactics.Any(x1 => x1.Define()));
-        
-        foreach (var ability in validAbilities.Where(x => x.tactics.Any(x1 => !x1.isDefault)))
+
+        var isNonDefaultUsed = false;
+        var singleAbility = validAbilities.FirstOrDefault(x => x.tactics.Any(x1 => !x1.isDefault));
+        if (!singleAbility.IsNull())
         {
-            var tactic = ability.tactics.FirstOrDefault();
-            yield return StartCoroutine(ability.Use(tactic));
-            ability.StopCoroutine("Use");
-            break;
+            var tactic = singleAbility.tactics.FirstOrDefault();
+            yield return StartCoroutine(singleAbility.Use(tactic));
+            singleAbility.StopCoroutine("Use");
+            isNonDefaultUsed = true;
         }
 
-        foreach (var ability in validAbilities.Where(x => x.tactics.Any(x1 => x1.isDefault)))
+        if (!isNonDefaultUsed)
         {
-            var tactic = ability.tactics.FirstOrDefault();
-            yield return StartCoroutine(ability.Use(tactic));
-            ability.StopCoroutine("Use");
-            break;
+            singleAbility = validAbilities.FirstOrDefault(x => x.tactics.Any(x1 => x1.isDefault));
+            if (!singleAbility.IsNull())
+            {
+                var tactic = singleAbility.tactics.FirstOrDefault();
+                yield return StartCoroutine(singleAbility.Use(tactic));
+                singleAbility.StopCoroutine("Use");
+            }
         }
 
         owner.isTurn = false;
@@ -93,6 +101,7 @@ public class Character : MonoBehaviour
             owner.onAbilityHandledCallback.Invoke(owner);
 
         validAbilities = null;
+        singleAbility = null;
 
         owner.StopCoroutine("OnAbilityHandling");
         owner = null;

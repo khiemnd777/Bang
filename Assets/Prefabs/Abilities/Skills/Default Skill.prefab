@@ -51,10 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c50fa4849054741a941569b708b993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Default Skill
+  description: New description of ability
+  defaultTacticPrefab: {fileID: 114405435392580238, guid: fcaaaa3f7d69bf345960101c067856a7,
+    type: 2}
   character: {fileID: 0}
   isUsing: 0
   tactics: []
-  name: Default Skill
   icon: {fileID: 0}
   markColor: {r: 1, g: 0.2205882, b: 0.2205882, a: 1}
   selectColor: {r: 0.5025451, g: 0.72794116, b: 0.34791303, a: 1}
