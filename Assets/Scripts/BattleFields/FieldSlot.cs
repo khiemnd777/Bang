@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +11,11 @@ public class FieldSlot : MonoBehaviour
     public Character character;
 
     DragDropHandler dragDropHandler;
+    Canvas canvas;
 
     void Start()
     {
+        canvas = GetComponentInParent<Canvas>();
         dragDropHandler = GetComponent<DragDropHandler>();
         dragDropHandler.onDragged += OnUpdateSlot;
     }
@@ -29,23 +33,32 @@ public class FieldSlot : MonoBehaviour
         icon.enabled = false;
     }
 
-    public void OnShowSkillPanelButtonClick(){
-        AbilityList.instance.Clear();
-        foreach(var skill in character.learnedSkills){
-            AbilityList.instance.AddItem(skill);
+    public void OnShowSkillPanelButtonClick()
+    {
+        if(character.IsNull())
+            return;
+        var abilityList = AbilityList.instance;
+        abilityList.Clear();
+        foreach (var skill in character.learnedSkills)
+        {
+            abilityList.AddItem(skill);
         }
-	}
+        abilityList.OpenPanel(transform.position);
+        abilityList = null;
+    }
 
     void OnUpdateSlot(GameObject item, bool isAlternative)
     {
         // inactive priorityIndex
-        foreach(var slot in BattleFieldManager.instance.playerFieldSlots){
+        foreach (var slot in BattleFieldManager.instance.playerFieldSlots)
+        {
             slot.priorityIndex.gameObject.SetActive(false);
         }
-        foreach(var slot in BattleFieldManager.instance.opponentFieldSlots){
+        foreach (var slot in BattleFieldManager.instance.opponentFieldSlots)
+        {
             slot.priorityIndex.gameObject.SetActive(false);
         }
-        
+
         var oldFieldSlot = item.GetComponent<FieldSlot>();
         if (isAlternative)
         {

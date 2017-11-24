@@ -19,6 +19,11 @@ public class AbilityItem : MonoBehaviour
                 (!string.IsNullOrEmpty(ability.description) ? ability.description : "");
     }
 
+    public void OnOpenTacticListButtonClick()
+    {
+
+    }
+
     void OnDrawGizmos()
     {
         if (ability.IsNull())

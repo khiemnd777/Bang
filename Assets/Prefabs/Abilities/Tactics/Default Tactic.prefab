@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 983ca23676099a14d9607d579f0e0bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: New description of tactic
+  description: Attack any enemies in rule of 3x3
   isDefault: 1
   ability: {fileID: 0}
   owner: {fileID: 0}

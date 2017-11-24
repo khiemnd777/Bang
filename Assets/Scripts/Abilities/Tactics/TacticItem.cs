@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TacticalUI : MonoBehaviour
+public class TacticItem : MonoBehaviour
 {
     public Tactical tactic;
 
@@ -13,6 +13,7 @@ public class TacticalUI : MonoBehaviour
     void OnDrawGizmos()
     {
         if(tactic.IsNull())
+            return;
         title = GetComponentInChildren<Text>();
         title.text = tactic.description;
     }

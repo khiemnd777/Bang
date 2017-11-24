@@ -35,8 +35,11 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     void Start()
     {
-        items = transform.parent.GetComponentsInChildren<DragDropHandler>();
         originalColor = GetComponent<Image>().color;
+    }
+
+    void Update(){
+        items = transform.parent.GetComponentsInChildren<DragDropHandler>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

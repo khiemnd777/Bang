@@ -29,21 +29,75 @@ public class AbilityList : MonoBehaviour
     #endregion
 
     public AbilityItem itemPrefab;
-    public Transform parent;
+    public Transform container;
+    public Transform panel;
+
+    float skillPanelDisplayingPercent;
+    float skillPanelClosingPercent;
+    Canvas canvas;
+
+    void Start()
+    {
+        canvas = panel.GetComponentInParent<Canvas>();
+        panel.gameObject.SetActive(false);
+    }
 
     public void AddItem(Ability item)
     {
-        var abilityItem = Instantiate<AbilityItem>(itemPrefab, new Vector3(1f, 1f, 0f), Quaternion.identity, parent);
+        var abilityItem = Instantiate<AbilityItem>(itemPrefab, new Vector3(1f, 1f, 0f), Quaternion.identity, container);
         abilityItem.ability = item;
         abilityItem.HandleTitle();
     }
 
     public void Clear()
     {
-        var items = parent.GetComponentsInChildren<AbilityItem>();
+        var items = container.GetComponentsInChildren<AbilityItem>();
         foreach (var item in items)
         {
             DestroyImmediate(item.gameObject);
         }
+    }
+
+    public void OpenPanel(Vector3 fromPosition){
+        StopCoroutine("PanelOpening");
+        skillPanelDisplayingPercent = 0f;
+        panel.gameObject.SetActive(false);
+        panel.transform.localScale = Vector3.one;
+        StartCoroutine(PanelOpening(fromPosition));
+    }
+
+    public IEnumerator PanelOpening(Vector3 fromPosition)
+    {
+        var cloneAbilityList = Instantiate(panel, fromPosition, Quaternion.identity, canvas.transform);
+        cloneAbilityList.gameObject.SetActive(true);
+        var originalClonePosition = cloneAbilityList.transform.position;
+        cloneAbilityList.transform.localScale = Vector3.zero;
+        while (skillPanelDisplayingPercent < 1f)
+        {
+            skillPanelDisplayingPercent += Time.deltaTime / .25f;
+            cloneAbilityList.transform.position = Vector2.Lerp(originalClonePosition, panel.transform.position, skillPanelDisplayingPercent);
+            cloneAbilityList.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, skillPanelDisplayingPercent);
+            yield return null;
+        }
+        Destroy(cloneAbilityList.gameObject);
+        panel.gameObject.SetActive(true);
+        skillPanelDisplayingPercent = 0f;
+    }
+
+    public void OnClosePanelButtonClick()
+    {
+        StartCoroutine(SkillPanelClosing());
+    }
+
+    IEnumerator SkillPanelClosing()
+    {
+        while (skillPanelClosingPercent < 1f)
+        {
+            skillPanelClosingPercent += Time.deltaTime / .175f;
+            panel.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, skillPanelClosingPercent);
+            yield return null;
+        }
+        skillPanelClosingPercent = 0f;
+        panel.gameObject.SetActive(false);
     }
 }
