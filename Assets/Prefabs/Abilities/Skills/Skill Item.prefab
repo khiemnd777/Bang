@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114556740800769830}
   - component: {fileID: 114004833454483212}
   - component: {fileID: 114921872421148596}
+  - component: {fileID: 114812601190047618}
   m_Layer: 5
   m_Name: Skill Item
   m_TagString: Untagged
@@ -120,7 +121,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Attack opponent with their HP is lower than 30%
+  m_Text: 'Default Skill
+
+    Default skill for test'
 --- !u!114 &114556740800769830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,6 +151,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114812601190047618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084546564209156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4474ac52912f7489aa14735edffff57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ability: {fileID: 0}
 --- !u!114 &114921872421148596
 MonoBehaviour:
   m_ObjectHideFlags: 1

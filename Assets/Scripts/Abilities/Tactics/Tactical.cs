@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Tactical : MonoBehaviour
 {
+    public string description = "New description of tactic";
     public bool isDefault;
     public Ability ability;
     public Tactical owner;

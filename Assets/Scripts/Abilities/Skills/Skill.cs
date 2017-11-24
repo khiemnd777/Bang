@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Skill : Ability
 {
-    new public string name = "New Skill";
     public Sprite icon;
     public Color markColor;
     public Color selectColor;

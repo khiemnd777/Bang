@@ -29,34 +29,11 @@ public class FieldSlot : MonoBehaviour
         icon.enabled = false;
     }
 
-    public void OnUseButtonClick(){
-		// if(character == null)
-		// 	return;
-
-        // var lastLearnedSkill = character.learnedSkills[character.learnedSkills.Count - 1];
-        // lastLearnedSkill.Use();
-
-        // // inactive priorityIndex
-        // foreach(var slot in BattleFieldManager.instance.playerFieldSlots){
-        //     slot.priorityIndex.gameObject.SetActive(false);
-        // }
-        // foreach(var slot in BattleFieldManager.instance.opponentFieldSlots){
-        //     slot.priorityIndex.gameObject.SetActive(false);
-        // }
-
-        // var fieldSlots = character.isEnemy ? BattleFieldManager.instance.playerFieldSlots : BattleFieldManager.instance.opponentFieldSlots;
-        // for(var i = 0; i < fieldSlots.Length; i++){
-        //     for(var ii = 0; ii < lastLearnedSkill.priorityPositions.Length; ii++){
-        //         if(i != lastLearnedSkill.priorityPositions[ii])
-        //             continue;
-        //         var fieldSlot = fieldSlots[i];
-        //         fieldSlot.priorityIndex.gameObject.SetActive(true);
-        //         fieldSlot.priorityIndex.GetComponentInChildren<Text>().text = (ii + 1).ToString();
-        //         fieldSlot = null;
-        //     }
-        // }
-        // fieldSlots = null;
-        // lastLearnedSkill = null;
+    public void OnShowSkillPanelButtonClick(){
+        AbilityList.instance.Clear();
+        foreach(var skill in character.learnedSkills){
+            AbilityList.instance.AddItem(skill);
+        }
 	}
 
     void OnUpdateSlot(GameObject item, bool isAlternative)

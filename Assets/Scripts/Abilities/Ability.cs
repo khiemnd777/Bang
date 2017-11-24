@@ -2,19 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ability : MonoBehaviour
 {
+    new public string name = "New skill";
+    public string description = "New description of ability";
     public Character character;
     public bool isUsing;
     public List<Tactical> tactics = new List<Tactical>();
-    
+
     public virtual IEnumerator Use(Tactical tactic)
     {
         yield return null;
     }
 
-    public void AddTactic(Tactical tactic){
+    public void AddTactic(Tactical tactic)
+    {
         tactic.ability = this;
         tactics.Add(tactic);
     }
@@ -35,7 +39,8 @@ public class Ability : MonoBehaviour
         return opponentFieldSlots;
     }
 
-    public FieldSlot GetOwnFieldSlot(){
+    public FieldSlot GetOwnFieldSlot()
+    {
         var fieldSlots = GetFieldSlots();
         var single = fieldSlots.FirstOrDefault(x => x.character == character);
         fieldSlots = null;

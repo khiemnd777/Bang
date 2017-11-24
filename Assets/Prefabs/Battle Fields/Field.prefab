@@ -149,7 +149,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114698040767338540}
-        m_MethodName: OnUseButtonClick
+        m_MethodName: OnShowSkillPanelButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
