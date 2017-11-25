@@ -46,6 +46,9 @@ public class AbilityList : MonoBehaviour
     {
         var abilityItem = Instantiate<AbilityItem>(itemPrefab, new Vector3(1f, 1f, 0f), Quaternion.identity, container);
         abilityItem.ability = item;
+        abilityItem.ClearAllTacticItems();
+        abilityItem.InstantiateTacticItems();
+        abilityItem.ToggleTacticContainer();
         abilityItem.HandleTitle();
     }
 

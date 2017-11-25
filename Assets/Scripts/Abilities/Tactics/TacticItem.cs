@@ -10,11 +10,15 @@ public class TacticItem : MonoBehaviour
 
     Text title;
 
+    public void HandleTitle(){
+        title = GetComponentInChildren<Text>();
+        title.text = tactic.description;
+    }
+
     void OnDrawGizmos()
     {
         if(tactic.IsNull())
             return;
-        title = GetComponentInChildren<Text>();
-        title.text = tactic.description;
+        HandleTitle();
     }
 }

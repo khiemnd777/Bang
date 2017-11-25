@@ -9,6 +9,7 @@ public class AbilityItem : MonoBehaviour
     public Ability ability;
     public RectTransform titleContainer;
     public Transform tacticContainer;
+    public TacticItem tacticItemPrefab;
 
     RectTransform rectTransform;
     float minHeight;
@@ -17,6 +18,7 @@ public class AbilityItem : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
         minHeight = titleContainer.GetHeight() + 10f;
+        FitWithTacticContainer();
     }
 
     void Update()
@@ -33,6 +35,24 @@ public class AbilityItem : MonoBehaviour
             (!string.IsNullOrEmpty(ability.description)
                 && !string.IsNullOrEmpty(ability.name) ? "\n" : "") +
                 (!string.IsNullOrEmpty(ability.description) ? ability.description : "");
+    }
+
+    public void InstantiateTacticItems(){
+        var tactics = ability.tactics;
+        foreach(var tactic in tactics){
+            var tacticItem = Instantiate<TacticItem>(tacticItemPrefab, Vector2.zero, Quaternion.identity, tacticContainer);
+            tacticItem.tactic = tactic;
+            tacticItem.HandleTitle();
+            tacticItem = null;
+        }
+        tactics = null;
+    }
+
+    public void ClearAllTacticItems(){
+        var tacticItems = tacticContainer.GetComponentsInChildren<TacticItem>();
+        foreach(var tacticItem in tacticItems){
+            DestroyImmediate(tacticItem.gameObject);
+        }
     }
 
     public void ToggleTacticContainer()

@@ -256,6 +256,8 @@ MonoBehaviour:
   ability: {fileID: 0}
   titleContainer: {fileID: 224478016147037040}
   tacticContainer: {fileID: 224400856284314200}
+  tacticItemPrefab: {fileID: 114997163281117542, guid: f2989ee4dba204d1592e68bf5b28ff57,
+    type: 2}
 --- !u!114 &114433827652813766
 MonoBehaviour:
   m_ObjectHideFlags: 1
