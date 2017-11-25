@@ -71,8 +71,11 @@ public class Character : MonoBehaviour
     IEnumerator OnAbilityHandling(Character owner)
     {
         var validAbilities = owner.abilities
+            .OrderBy(x => x.displayOrder)
             .Where(x =>
-                x.tactics.Any(x1 => x1.Define()));
+                x.tactics
+                    .OrderBy(x1=>x1.displayOrder)
+                    .Any(x1 => x1.Define()));
 
         var isNonDefaultUsed = false;
         var singleAbility = validAbilities.FirstOrDefault(x => x.tactics.Any(x1 => !x1.isDefault));
