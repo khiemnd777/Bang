@@ -39,7 +39,7 @@ public class AbilityList : MonoBehaviour
     void Start()
     {
         canvas = panel.GetComponentInParent<Canvas>();
-        panel.gameObject.SetActive(false);
+        // panel.gameObject.SetActive(false);
     }
 
     public void AddItem(Ability item)

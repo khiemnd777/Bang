@@ -58,7 +58,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 draggableIcon = Instantiate<Image>(icon, Input.mousePosition, Quaternion.identity);
                 draggableIcon.sprite = icon.sprite;
-                draggableIcon.transform.localScale = Vector3.one; //icon.transform.lossyScale;
+                draggableIcon.transform.localScale = Vector3.one;
                 draggableIcon.transform.SetParent(canvas.transform, false);
             }
         }
