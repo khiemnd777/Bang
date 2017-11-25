@@ -11,19 +11,27 @@ public class AbilityItem : MonoBehaviour
     public Transform tacticContainer;
     public TacticItem tacticItemPrefab;
 
+    DragDropHandler dragDropHandler;
     RectTransform rectTransform;
     float minHeight;
 
     void Start()
     {
+        dragDropHandler = GetComponent<DragDropHandler>();
         rectTransform = GetComponent<RectTransform>();
         minHeight = titleContainer.GetHeight() + 10f;
         FitWithTacticContainer();
+        
+        dragDropHandler.onDragged += OnItemDragged;
     }
 
     void Update()
     {
         FitWithTacticContainer();
+    }
+
+    void OnItemDragged(GameObject item, bool isAlternative){
+        AbilityList.instance.SetDisplayOrder();
     }
 
     public void HandleTitle()
@@ -40,12 +48,37 @@ public class AbilityItem : MonoBehaviour
     public void InstantiateTacticItems(){
         var tactics = ability.tactics;
         foreach(var tactic in tactics){
+            tactic.displayOrder = GetNextTacticDisplayOrder();
             var tacticItem = Instantiate<TacticItem>(tacticItemPrefab, Vector2.zero, Quaternion.identity, tacticContainer);
+            tacticItem.abilitiItem = this;
             tacticItem.tactic = tactic;
             tacticItem.HandleTitle();
             tacticItem = null;
         }
         tactics = null;
+    }
+
+    int GetNextTacticDisplayOrder()
+    {
+        var tacticItems = tacticContainer.GetComponentsInChildren<TacticItem>();
+        if(tacticItems.Length == 0){
+            return 1;
+        }
+        var nextDisplayOrder = tacticItems.Max(x => x.tactic.displayOrder) + 1;
+        tacticItems = null;
+        return nextDisplayOrder;
+    }
+
+    public void SetTacticDisplayOrder()
+    {
+        var tacticItems = tacticContainer.GetComponentsInChildren<TacticItem>();
+        for (var i = 0; i < tacticItems.Length; i++)
+        {
+            var item = tacticItems[i];
+            item.tactic.displayOrder = i + 1;
+            item = null;
+        }
+        tacticItems = null;
     }
 
     public void ClearAllTacticItems(){

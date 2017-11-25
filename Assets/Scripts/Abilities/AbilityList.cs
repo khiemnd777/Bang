@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,17 +40,42 @@ public class AbilityList : MonoBehaviour
     void Start()
     {
         canvas = panel.GetComponentInParent<Canvas>();
-        // panel.gameObject.SetActive(false);
+        panel.gameObject.SetActive(false);
     }
 
     public void AddItem(Ability item)
     {
-        var abilityItem = Instantiate<AbilityItem>(itemPrefab, new Vector3(1f, 1f, 0f), Quaternion.identity, container);
+        item.displayOrder = GetNextDisplayOrder();
+        // Instantiate an ability item
+        var abilityItem = Instantiate<AbilityItem>(itemPrefab, Vector2.zero, Quaternion.identity, container);
         abilityItem.ability = item;
         abilityItem.ClearAllTacticItems();
         abilityItem.InstantiateTacticItems();
         abilityItem.ToggleTacticContainer();
         abilityItem.HandleTitle();
+    }
+
+    int GetNextDisplayOrder()
+    {
+        var abilityItems = container.GetComponentsInChildren<AbilityItem>();
+        if(abilityItems.Length == 0){
+            return 1;
+        }
+        var nextDisplayOrder = abilityItems.Max(x => x.ability.displayOrder) + 1;
+        abilityItems = null;
+        return nextDisplayOrder;
+    }
+
+    public void SetDisplayOrder()
+    {
+        var abilityItems = container.GetComponentsInChildren<AbilityItem>();
+        for (var i = 0; i < abilityItems.Length; i++)
+        {
+            var item = abilityItems[i];
+            item.ability.displayOrder = i + 1;
+            item = null;
+        }
+        abilityItems = null;
     }
 
     public void Clear()
@@ -61,7 +87,8 @@ public class AbilityList : MonoBehaviour
         }
     }
 
-    public void OpenPanel(Vector3 fromPosition){
+    public void OpenPanel(Vector3 fromPosition)
+    {
         StopCoroutine("PanelOpening");
         skillPanelDisplayingPercent = 0f;
         panel.gameObject.SetActive(false);

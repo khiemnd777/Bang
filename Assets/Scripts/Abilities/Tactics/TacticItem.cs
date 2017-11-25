@@ -7,8 +7,20 @@ using UnityEngine.UI;
 public class TacticItem : MonoBehaviour
 {
     public Tactical tactic;
+    public AbilityItem abilitiItem;
 
+    DragDropHandler dragDropHandler;
     Text title;
+
+    void Start(){
+        dragDropHandler = GetComponent<DragDropHandler>();
+        dragDropHandler.onDragged += OnItemDragged;
+    }
+
+    void OnItemDragged(GameObject item, bool isAlternative)
+    {
+        abilitiItem.SetTacticDisplayOrder();
+    }
 
     public void HandleTitle(){
         title = GetComponentInChildren<Text>();
