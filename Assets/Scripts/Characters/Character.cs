@@ -74,7 +74,7 @@ public class Character : MonoBehaviour
             .OrderBy(x => x.displayOrder)
             .Where(x =>
                 x.tactics
-                    .OrderBy(x1=>x1.displayOrder)
+                    .OrderBy(x1 => x1.displayOrder)
                     .Any(x1 => x1.Define()));
 
         var isNonDefaultUsed = false;

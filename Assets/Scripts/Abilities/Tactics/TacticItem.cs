@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TacticItem : MonoBehaviour
 {
     public Tactical tactic;
-    public AbilityItem abilitiItem;
+    public AbilityItem abilityItem;
 
     DragDropHandler dragDropHandler;
     Text title;
@@ -19,7 +19,7 @@ public class TacticItem : MonoBehaviour
 
     void OnItemDragged(GameObject item, bool isAlternative)
     {
-        abilitiItem.SetTacticDisplayOrder();
+        abilityItem.SetTacticDisplayOrder();
     }
 
     public void HandleTitle(){

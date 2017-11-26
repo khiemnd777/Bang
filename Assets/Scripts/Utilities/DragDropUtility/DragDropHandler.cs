@@ -17,6 +17,15 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public delegate void OnDragged(GameObject item, bool isAlternative);
     public OnDragged onDragged;
 
+    public delegate void OnBeginDragEvent(PointerEventData eventData);
+    public OnBeginDragEvent onBeginDragEvent;
+
+    public delegate void OnDragEvent(PointerEventData eventData);
+    public OnDragEvent onDragEvent;
+
+    public delegate void OnEndDragEvent(PointerEventData eventData);
+    public OnEndDragEvent onEndDragEvent;
+
     DragDropHandler[] items;
     Color originalColor;
     int orginalSiblingIndex;
@@ -44,6 +53,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        var position = eventData.position;
         canvas = GetComponentInParent<Canvas>();
         startPosition = transform.position;
         startDragTime = Time.time;
@@ -56,7 +66,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (draggableIcon != null)
                     Destroy(draggableIcon.gameObject);
 
-                draggableIcon = Instantiate<Image>(icon, Input.mousePosition, Quaternion.identity);
+                draggableIcon = Instantiate<Image>(icon, position, Quaternion.identity);
                 draggableIcon.sprite = icon.sprite;
                 draggableIcon.transform.localScale = Vector3.one;
                 draggableIcon.transform.SetParent(canvas.transform, false);
@@ -67,7 +77,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             if (draggableObject != null)
                 Destroy(draggableObject.gameObject);
             orginalSiblingIndex = transform.GetSiblingIndex();
-            draggableObject = Instantiate<DragDropHandler>(this, Input.mousePosition, Quaternion.identity);
+            draggableObject = Instantiate<DragDropHandler>(this, position, Quaternion.identity);
             draggableObject.transform.localScale = Vector3.one;
             draggableObject.transform.SetParent(canvas.transform, false);
         }
@@ -76,18 +86,23 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         isEndDrag = false;
 
         StartCoroutine(OnBeginDragging());
+
+        if(onBeginDragEvent != null){
+            onBeginDragEvent.Invoke(eventData);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        var position = eventData.position;
         if (useIcon)
         {
             if (draggableIcon != null)
             {
-                draggableIcon.transform.position = Input.mousePosition;
+                draggableIcon.transform.position = position;
                 foreach (var item in items)
                 {
-                    if (!RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), Input.mousePosition))
+                    if (!RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), position))
                     {
                         item.transform.localScale = Vector3.one;
                         item.GetComponent<Image>().color = originalColor;
@@ -102,21 +117,27 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             if (draggableObject != null)
             {
-                draggableObject.transform.position = Input.mousePosition;
+                draggableObject.transform.position = position;
                 for (var i = 0; i < items.Length; i++)
                 {
                     var item = items[i];
-                    if (RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), Input.mousePosition))
+                    if (RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), position))
                     {
                         transform.SetSiblingIndex(item.transform.GetSiblingIndex());
                     }
                 }
             }
         }
+
+        if(onDragEvent != null){
+            onDragEvent.Invoke(eventData);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        var position = eventData.position;
+
         isDrag = false;
         isEndDrag = true;
         dragJourneyLength = 0f;
@@ -133,7 +154,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 var isAlternative = false;
                 foreach (var item in items)
                 {
-                    if (RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), Input.mousePosition))
+                    if (RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), position))
                     {
                         if (item != this)
                         {
@@ -191,6 +212,10 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     StartCoroutine(OnSlotMiss());
                 }
             }
+        }
+
+        if(onEndDragEvent != null){
+            onEndDragEvent.Invoke(eventData);
         }
     }
 

@@ -50,7 +50,7 @@ public class AbilityItem : MonoBehaviour
         foreach(var tactic in tactics){
             tactic.displayOrder = GetNextTacticDisplayOrder();
             var tacticItem = Instantiate<TacticItem>(tacticItemPrefab, Vector2.zero, Quaternion.identity, tacticContainer);
-            tacticItem.abilitiItem = this;
+            tacticItem.abilityItem = this;
             tacticItem.tactic = tactic;
             tacticItem.HandleTitle();
             tacticItem = null;
