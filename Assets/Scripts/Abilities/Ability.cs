@@ -8,6 +8,7 @@ public class Ability : MonoBehaviour
 {
     new public string name = "New skill";
     public string description = "New description of ability";
+    public bool isDefault;
     public int displayOrder;
     public Tactical defaultTacticPrefab;
     public Character character;
@@ -16,6 +17,7 @@ public class Ability : MonoBehaviour
 
     public virtual IEnumerator Use(Tactical tactic)
     {
+        Debug.Log(character.name + " is using " + name + " with tactic " + tactic.description);
         yield return null;
     }
 

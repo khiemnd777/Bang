@@ -41,6 +41,8 @@ public class FieldSlot : MonoBehaviour
         abilityList.Clear();
         foreach (var skill in character.learnedSkills)
         {
+            if(skill.isDefault)
+                continue;
             abilityList.AddItem(skill);
         }
         abilityList.OpenPanel(transform.position);

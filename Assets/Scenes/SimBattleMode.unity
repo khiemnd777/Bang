@@ -849,7 +849,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Character 1
-  health: 20
+  health: 50
+  maxHealth: 50
   dexterity: 19
   icon: {fileID: 21300000, guid: 04e01e567d562472588281f898c954f1, type: 3}
   isDeath: 0
@@ -857,8 +858,7 @@ MonoBehaviour:
   isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114200599791095318, guid: 6d4004f0d2e604385ac17534b6040891, type: 2}
   learnedSkills: []
   tactics: []
   abilities: []
@@ -1106,7 +1106,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 206684744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 128.10968, y: 10, z: 0}
+  m_LocalPosition: {x: 128.73969, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1051525783}
@@ -1233,7 +1233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Enemy 3
-  health: 20
+  health: 50
+  maxHealth: 50
   dexterity: 9
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isDeath: 0
@@ -1534,7 +1535,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Character 3
-  health: 20
+  health: 50
+  maxHealth: 50
   dexterity: 9
   icon: {fileID: 21300000, guid: 3839bef9aa3f3475eb19172a7b326865, type: 3}
   isDeath: 0
@@ -1542,6 +1544,7 @@ MonoBehaviour:
   isTurn: 0
   skills:
   - {fileID: 114519697714501560, guid: e2cd6559f432e4e9ba87eddf573d30ab, type: 2}
+  - {fileID: 114200599791095318, guid: 6d4004f0d2e604385ac17534b6040891, type: 2}
   learnedSkills: []
   tactics: []
   abilities: []
@@ -3429,7 +3432,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Character 2
-  health: 20
+  health: 50
+  maxHealth: 50
   dexterity: 14
   icon: {fileID: 21300000, guid: a10f65f777bf64040aca8dcfac6cd4d9, type: 3}
   isDeath: 0
@@ -4089,7 +4093,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Character 4
-  health: 20
+  health: 50
+  maxHealth: 50
   dexterity: 18
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isDeath: 0
@@ -4366,7 +4371,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1422493855}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 128.10968, y: -0.000015258789, z: 0}
+  m_LocalPosition: {x: 128.73969, y: -0.000015258789, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1443382165}
@@ -4640,7 +4645,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Enemy 1
-  health: 20
+  health: 10
+  maxHealth: 50
   dexterity: 10
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isDeath: 0
@@ -4865,7 +4871,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Enemy 2
-  health: 20
+  health: 50
+  maxHealth: 50
   dexterity: 13
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isDeath: 0
@@ -4999,7 +5006,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Enemy 4
-  health: 20
+  health: 50
+  maxHealth: 50
   dexterity: 15
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isDeath: 0
@@ -5392,7 +5400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Enemy 5
-  health: 20
+  health: 50
+  maxHealth: 50
   dexterity: 8
   icon: {fileID: 21300000, guid: f4fa355a166a64a4fb9ca59c4e1610c7, type: 3}
   isDeath: 0
@@ -5894,7 +5903,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Character 5
-  health: 20
+  health: 50
+  maxHealth: 50
   dexterity: 11
   icon: {fileID: 21300000, guid: 14c06f8b9e7cd49e7a0fb14c72e4bab2, type: 3}
   isDeath: 0

@@ -53,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Default Skill
   description: New description of ability
+  isDefault: 1
+  displayOrder: 0
   defaultTacticPrefab: {fileID: 114405435392580238, guid: fcaaaa3f7d69bf345960101c067856a7,
     type: 2}
   character: {fileID: 0}

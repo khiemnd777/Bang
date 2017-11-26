@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DefaultSkill : Skill
+public class FireSlash : Skill
 {
     public override IEnumerator Use(Tactical tactic)
     {

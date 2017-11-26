@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
 {
     new public string name = "New Character";
     public float health;
+    public float maxHealth;
     [Header("Stats")]
     public float dexterity;
     public Sprite icon;
@@ -78,22 +79,24 @@ public class Character : MonoBehaviour
                     .Any(x1 => x1.Define()));
 
         var isNonDefaultUsed = false;
-        var singleAbility = validAbilities.FirstOrDefault(x => x.tactics.Any(x1 => !x1.isDefault));
+        var singleAbility = validAbilities.FirstOrDefault(x => !x.isDefault);
         if (!singleAbility.IsNull())
         {
-            var tactic = singleAbility.tactics.FirstOrDefault();
-            yield return StartCoroutine(singleAbility.Use(tactic));
+            var tactics = singleAbility.tactics.OrderBy(x => x.displayOrder).Where(x => x.Define());
+            var singleTactic = tactics.FirstOrDefault(x => !x.isDefault) ?? tactics.FirstOrDefault(x => x.isDefault);
+            yield return StartCoroutine(singleAbility.Use(singleTactic));
             singleAbility.StopCoroutine("Use");
             isNonDefaultUsed = true;
         }
 
         if (!isNonDefaultUsed)
         {
-            singleAbility = validAbilities.FirstOrDefault(x => x.tactics.Any(x1 => x1.isDefault));
+            singleAbility = validAbilities.FirstOrDefault(x => x.isDefault);
             if (!singleAbility.IsNull())
             {
-                var tactic = singleAbility.tactics.FirstOrDefault();
-                yield return StartCoroutine(singleAbility.Use(tactic));
+                var tactics = singleAbility.tactics.OrderBy(x => x.displayOrder).Where(x => x.Define());
+                var singleTactic = tactics.FirstOrDefault(x => !x.isDefault) ?? tactics.FirstOrDefault(x => x.isDefault);
+                yield return StartCoroutine(singleAbility.Use(singleTactic));
                 singleAbility.StopCoroutine("Use");
             }
         }

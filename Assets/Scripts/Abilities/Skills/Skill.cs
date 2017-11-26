@@ -10,7 +10,6 @@ public class Skill : Ability
     
     public override IEnumerator Use(Tactical tactic) 
     {
-        Debug.Log(character.name + " is using skill " + name);
         yield return base.Use(tactic);
     }
 }

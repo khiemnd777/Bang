@@ -13,26 +13,6 @@ public class DefaultTactic : Tactical
         if(priorityPositions.Length <= 0)
             return false;
         return true;
-        // var positions = FindPriorityPositions();
-        // var opponentFieldSlots = ability.GetOpponentFieldSlots();
-        // var opponentFieldSlot = opponentFieldSlots[positions[0]];
-        // var opponentImage = opponentFieldSlot.GetComponent<Image>();
-        // var ownFieldSlot = ability.GetOwnFieldSlot();
-        // var ownImage = ownFieldSlot.GetComponent<Image>();
-
-        // opponentImage.color = markColor;
-        // ownImage.color = selectColor;
-        
-        // yield return new WaitForSeconds(.125f);
-
-        // opponentImage.color = Color.white;
-        // ownImage.color = Color.white;
-        
-        // opponentImage = null;
-        // ownImage = null;
-        // positions = null;
-        // opponentFieldSlots = null;
-        // opponentFieldSlot = null;
     }
 
     int[] FindPriorityPositions()
