@@ -10,9 +10,9 @@ public class TacticItem : MonoBehaviour
     public AbilityItem abilityItem;
 
     DragDropHandler dragDropHandler;
-    Text title;
 
-    void Start(){
+    void Start()
+    {
         dragDropHandler = GetComponent<DragDropHandler>();
         dragDropHandler.onDragged += OnItemDragged;
     }
@@ -22,14 +22,31 @@ public class TacticItem : MonoBehaviour
         abilityItem.SetTacticDisplayOrder();
     }
 
-    public void HandleTitle(){
-        title = GetComponentInChildren<Text>();
+    public void AddTactic(Tactical tactic, AbilityItem abilityItem = null)
+    {
+        this.tactic = tactic;
+        this.abilityItem = abilityItem ?? this.abilityItem;
+        
+        HandleTitle();
+        FitHeight();
+    }
+
+    public void HandleTitle()
+    {
+        var title = GetComponentInChildren<Text>();
         title.text = tactic.description;
+    }
+
+    public void FitHeight()
+    {
+        var title = GetComponentInChildren<Text>();
+        var fitHeight = title.GetComponent<RectTransform>().GetHeight() + 15f;
+        GetComponent<RectTransform>().SetHeight(fitHeight);
     }
 
     void OnDrawGizmos()
     {
-        if(tactic.IsNull())
+        if (tactic.IsNull())
             return;
         HandleTitle();
     }

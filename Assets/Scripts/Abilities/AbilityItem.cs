@@ -34,6 +34,12 @@ public class AbilityItem : MonoBehaviour
         AbilityList.instance.SetDisplayOrder();
     }
 
+    public void AddTacticItem(Tactical tactic, TacticItem tacticItem){
+        ability.AddTactic(tactic);
+        tacticItem.transform.SetParent(tacticContainer);
+        tacticItem.AddTactic(tactic, this);
+    }
+
     public void HandleTitle()
     {
         var title = GetComponentInChildren<Text>();
@@ -48,11 +54,11 @@ public class AbilityItem : MonoBehaviour
     public void InstantiateTacticItems(){
         var tactics = ability.tactics;
         foreach(var tactic in tactics){
+            if(tactic.isDefault)
+                continue;
             tactic.displayOrder = GetNextTacticDisplayOrder();
             var tacticItem = Instantiate<TacticItem>(tacticItemPrefab, Vector2.zero, Quaternion.identity, tacticContainer);
-            tacticItem.abilityItem = this;
-            tacticItem.tactic = tactic;
-            tacticItem.HandleTitle();
+            tacticItem.AddTactic(tactic, this);
             tacticItem = null;
         }
         tactics = null;
@@ -103,11 +109,14 @@ public class AbilityItem : MonoBehaviour
 
     void FitWithTacticContainer()
     {
+        var tacticItems = tacticContainer.GetComponentsInChildren<TacticItem>();
+        if(tacticItems.Length == 0){
+            CloseTacticContainer();
+        }
         if(!tacticContainer.gameObject.activeSelf){
             rectTransform.SetHeight(minHeight);
             return;
         }
-        var tacticItems = tacticContainer.GetComponentsInChildren<TacticItem>();
         var totalTacticContainerHeight = GetTacticContainerHeight();
         var paddingBottom = (tacticItems.Length > 0 ? 1 : -1) * 5f;
         rectTransform.SetHeight(minHeight + totalTacticContainerHeight + paddingBottom);
@@ -116,16 +125,20 @@ public class AbilityItem : MonoBehaviour
 
     float GetTacticContainerHeight(){
         var totalTacticContainerHeight = 0f;
-        var paddingBottomTacticItem = 10f;
         var tacticItems = tacticContainer.GetComponentsInChildren<TacticItem>();
-        // tacticContainer.gameObject.SetActive(tacticItems.Length > 0);
+        var verticalLayoutGroup = tacticContainer.GetComponent<VerticalLayoutGroup>();
+        var index = 0;
         foreach (var tacticItem in tacticItems)
         {
+            var deltaBottomHeight = index == 0 ? verticalLayoutGroup.padding.bottom : verticalLayoutGroup.spacing;
             var tacticItemRectTransform = tacticItem.GetComponent<RectTransform>();
             var singleHeight = tacticItemRectTransform.GetHeight();
-            totalTacticContainerHeight += singleHeight + paddingBottomTacticItem;
+            totalTacticContainerHeight += singleHeight + deltaBottomHeight;
             tacticItemRectTransform = null;
+            ++index;
         }
+        tacticItems = null;
+        verticalLayoutGroup = null;
         return totalTacticContainerHeight;
     }
 

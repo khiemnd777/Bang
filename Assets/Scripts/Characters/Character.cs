@@ -30,7 +30,7 @@ public class Character : MonoBehaviour
     {
         var learnedSkill = Instantiate<Skill>(skill, Vector3.zero, Quaternion.identity, transform);
         // default tactic is always in tactic list
-        var defaultTactic = Instantiate<Tactical>(learnedSkill.defaultTacticPrefab, Vector3.zero, Quaternion.identity, learnedSkill.transform);
+        var defaultTactic = Instantiate<Tactical>(learnedSkill.defaultTacticPrefab, Vector3.zero, Quaternion.identity);
         learnedSkill.character = this;
         // add default tactic into list
         learnedSkill.AddTactic(defaultTactic);

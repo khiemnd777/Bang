@@ -22,6 +22,7 @@ public class Ability : MonoBehaviour
     public void AddTactic(Tactical tactic)
     {
         tactic.ability = this;
+        tactic.transform.SetParent(transform);
         tactics.Add(tactic);
     }
 

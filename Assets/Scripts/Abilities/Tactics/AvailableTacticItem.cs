@@ -29,14 +29,21 @@ public class AvailableTacticItem : MonoBehaviour
     void OnItemDroppedInZone(GameObject droppableZone, PointerEventData eventData)
     {
         droppableZone.SetActive(true);
+        var abilityItem = droppableZone.GetComponentInParent<AbilityItem>();
+
+        if (abilityItem == null)
+            return;
+
         var instanceTacticItem = Instantiate(tacticItemPrefab, Vector2.zero, Quaternion.identity, droppableZone.transform);
-        instanceTacticItem.tactic = tactic;
-        var abilityItem = droppableZone.GetComponent<AbilityItem>();
-        if(abilityItem != null){
-            abilityItem.ShowTacticContainer();
-            instanceTacticItem.abilityItem = abilityItem;
-        }
+        var instanceTactic = Instantiate(tactic, Vector2.zero, Quaternion.identity);
+        
+        abilityItem.AddTacticItem(instanceTactic, instanceTacticItem);
+        abilityItem.SetTacticDisplayOrder();
+        abilityItem.ShowTacticContainer();
+
         instanceTacticItem = null;
+        instanceTactic = null;
+        abilityItem = null;
     }
 
     public void HandleTitle()
