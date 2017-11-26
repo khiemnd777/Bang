@@ -93,17 +93,32 @@ public class AbilityItem : MonoBehaviour
         tacticContainer.gameObject.SetActive(!tacticContainer.gameObject.activeSelf);
     }
 
+    public void ShowTacticContainer(){
+        tacticContainer.gameObject.SetActive(true);
+    }
+
+    public void CloseTacticContainer(){
+        tacticContainer.gameObject.SetActive(false);
+    }
+
     void FitWithTacticContainer()
     {
         if(!tacticContainer.gameObject.activeSelf){
             rectTransform.SetHeight(minHeight);
             return;
         }
+        var tacticItems = tacticContainer.GetComponentsInChildren<TacticItem>();
+        var totalTacticContainerHeight = GetTacticContainerHeight();
+        var paddingBottom = (tacticItems.Length > 0 ? 1 : -1) * 5f;
+        rectTransform.SetHeight(minHeight + totalTacticContainerHeight + paddingBottom);
+        tacticItems = null;
+    }
+
+    float GetTacticContainerHeight(){
         var totalTacticContainerHeight = 0f;
         var paddingBottomTacticItem = 10f;
         var tacticItems = tacticContainer.GetComponentsInChildren<TacticItem>();
-        var paddingBottom = (tacticItems.Length > 0 ? 1 : -1) * 5f;
-        tacticContainer.gameObject.SetActive(tacticItems.Length > 0);
+        // tacticContainer.gameObject.SetActive(tacticItems.Length > 0);
         foreach (var tacticItem in tacticItems)
         {
             var tacticItemRectTransform = tacticItem.GetComponent<RectTransform>();
@@ -111,8 +126,7 @@ public class AbilityItem : MonoBehaviour
             totalTacticContainerHeight += singleHeight + paddingBottomTacticItem;
             tacticItemRectTransform = null;
         }
-        rectTransform.SetHeight(minHeight + totalTacticContainerHeight + paddingBottom);
-        tacticItems = null;
+        return totalTacticContainerHeight;
     }
 
     void OnDrawGizmos()

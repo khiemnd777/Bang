@@ -18,11 +18,25 @@ public class AvailableTacticItem : MonoBehaviour
     {
         dropZoneHandler = GetComponent<DropZoneHandler>();
         dropZoneHandler.onDragInZoneEvent += OnItemDropInZone;
+        dropZoneHandler.onDropInZoneEvent += OnItemDroppedInZone;
     }
 
-    void OnItemDropInZone(PointerEventData eventData)
+    void OnItemDropInZone(GameObject draggableZone, PointerEventData eventData)
     {
-        Debug.Log("InZone");
+
+    }
+
+    void OnItemDroppedInZone(GameObject droppableZone, PointerEventData eventData)
+    {
+        droppableZone.SetActive(true);
+        var instanceTacticItem = Instantiate(tacticItemPrefab, Vector2.zero, Quaternion.identity, droppableZone.transform);
+        instanceTacticItem.tactic = tactic;
+        var abilityItem = droppableZone.GetComponent<AbilityItem>();
+        if(abilityItem != null){
+            abilityItem.ShowTacticContainer();
+            instanceTacticItem.abilityItem = abilityItem;
+        }
+        instanceTacticItem = null;
     }
 
     public void HandleTitle()

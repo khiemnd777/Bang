@@ -161,7 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb08360e29b14062b697cc6b3b9ccb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableZone: {fileID: 0}
 --- !u!114 &114403563629711428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6a8871cad7c4eb69b41bf848e9ef82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrangeable: 1
   useIcon: 0
   icon: {fileID: 0}
   hoverColor: {r: 0.625, g: 0.6525735, b: 0.6525735, a: 0}

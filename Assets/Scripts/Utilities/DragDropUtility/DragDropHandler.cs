@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Image))]
 public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public bool arrangeable = true;
+    [Space]
     public bool useIcon;
     public Image icon;
     [Space]
@@ -47,7 +49,8 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         originalColor = GetComponent<Image>().color;
     }
 
-    void Update(){
+    void Update()
+    {
         items = transform.parent.GetComponentsInChildren<DragDropHandler>();
     }
 
@@ -87,13 +90,20 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         StartCoroutine(OnBeginDragging());
 
-        if(onBeginDragEvent != null){
+        if (onBeginDragEvent != null)
+        {
             onBeginDragEvent.Invoke(eventData);
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (onDragEvent != null)
+        {
+            onDragEvent.Invoke(eventData);
+        }
+        if (!arrangeable)
+            return;
         var position = eventData.position;
         if (useIcon)
         {
@@ -128,14 +138,16 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 }
             }
         }
-
-        if(onDragEvent != null){
-            onDragEvent.Invoke(eventData);
-        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (onEndDragEvent != null)
+        {
+            onEndDragEvent.Invoke(eventData);
+        }
+        if (!arrangeable)
+            return;
         var position = eventData.position;
 
         isDrag = false;
@@ -196,7 +208,8 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         else
         {
-            if(draggableObject != null){
+            if (draggableObject != null)
+            {
                 lastDraggableObjectPosition = draggableObject.transform.position;
                 if (orginalSiblingIndex != transform.GetSiblingIndex())
                 {
@@ -212,10 +225,6 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     StartCoroutine(OnSlotMiss());
                 }
             }
-        }
-
-        if(onEndDragEvent != null){
-            onEndDragEvent.Invoke(eventData);
         }
     }
 
