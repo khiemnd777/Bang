@@ -946,12 +946,12 @@ Prefab:
     - target: {fileID: 224534430223581628, guid: 268f1ad5bd09a47c6aa693f47b42f032,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.43658447
       objectReference: {fileID: 0}
     - target: {fileID: 224534430223581628, guid: 268f1ad5bd09a47c6aa693f47b42f032,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -74.97
+      value: -30.400002
       objectReference: {fileID: 0}
     - target: {fileID: 224534430223581628, guid: 268f1ad5bd09a47c6aa693f47b42f032,
         type: 2}
@@ -1041,12 +1041,12 @@ Prefab:
     - target: {fileID: 224577004682767880, guid: 268f1ad5bd09a47c6aa693f47b42f032,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 8.309998
       objectReference: {fileID: 0}
     - target: {fileID: 224577004682767880, guid: 268f1ad5bd09a47c6aa693f47b42f032,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -37.399994
+      value: -30.400023
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 268f1ad5bd09a47c6aa693f47b42f032, type: 2}
@@ -1537,7 +1537,7 @@ MonoBehaviour:
   name: Character 3
   health: 50
   maxHealth: 50
-  dexterity: 9
+  dexterity: 16
   icon: {fileID: 21300000, guid: 3839bef9aa3f3475eb19172a7b326865, type: 3}
   isDeath: 0
   isEnemy: 0
@@ -2630,12 +2630,12 @@ Prefab:
     - target: {fileID: 224571602560657280, guid: 3ea1d35976d864c0cb80de0586a2d6ea,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.43658447
       objectReference: {fileID: 0}
     - target: {fileID: 224571602560657280, guid: 3ea1d35976d864c0cb80de0586a2d6ea,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -30.399996
+      value: -30.400023
       objectReference: {fileID: 0}
     - target: {fileID: 224571602560657280, guid: 3ea1d35976d864c0cb80de0586a2d6ea,
         type: 2}
@@ -2982,7 +2982,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 987470436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 128.10968, y: 10, z: 0}
+  m_LocalPosition: {x: 128.73969, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1507653568}
@@ -3119,7 +3119,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1003781012}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 128.10968, y: -0.000015258789, z: 0}
+  m_LocalPosition: {x: 128.73969, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 949989713}
@@ -3584,7 +3584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1284348926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3935,7 +3935,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1331574012
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4371,7 +4371,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1422493855}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 128.73969, y: -0.000015258789, z: 0}
+  m_LocalPosition: {x: 128.73969, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1443382165}
