@@ -10,7 +10,11 @@ public class Character : MonoBehaviour
     public float maxHealth;
     [Header("Stats")]
     public float dexterity;
+    [Space]
+    public Transform model;
+    [Space]
     public Sprite icon;
+    [Space]
     public bool isDeath;
     public bool isEnemy;
     public bool isTurn;

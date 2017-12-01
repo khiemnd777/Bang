@@ -7,7 +7,6 @@ public class FieldSlot : MonoBehaviour
 {
     public Image icon;
     public Image priorityIndex;
-    [System.NonSerialized]
     public Character character;
 
     DragDropHandler dragDropHandler;

@@ -35,6 +35,9 @@ public class BattleFieldManager : MonoBehaviour
     public Transform playerField;
     public Transform opponentField;
     [Space]
+    public Transform playerField3D;
+    public Transform opponentField3D;
+    [Space]
     public MarathonRunner marathonRunner;
 
     [System.NonSerialized]
