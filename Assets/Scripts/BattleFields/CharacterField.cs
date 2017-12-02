@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FieldSlot3D : MonoBehaviour
+public class CharacterField : MonoBehaviour
 {
 	public Character character;
 
