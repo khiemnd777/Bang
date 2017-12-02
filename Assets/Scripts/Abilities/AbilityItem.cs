@@ -30,7 +30,7 @@ public class AbilityItem : MonoBehaviour
         FitWithTacticContainer();
     }
 
-    void OnItemDragged(GameObject item, bool isAlternative){
+    void OnItemDragged(GameObject item, int index, bool isAlternative){
         AbilityList.instance.SetDisplayOrder();
     }
 

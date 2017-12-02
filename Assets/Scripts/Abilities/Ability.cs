@@ -28,19 +28,45 @@ public class Ability : MonoBehaviour
         tactics.Add(tactic);
     }
 
+    public Character[] GetCharacters()
+    {
+        var manager = BattleFieldManager.instance;
+        var ownFieldSlots = !character.isEnemy
+            ? manager.characters.Where(x => !x.isEnemy)
+            : manager.characters.Where(x => x.isEnemy);
+        ownFieldSlots = ownFieldSlots.OrderBy(x => x.slot);
+        manager = null;
+        return ownFieldSlots.ToArray();
+    }
+
+    public Character[] GetOpponentCharacters()
+    {
+        var manager = BattleFieldManager.instance;
+        var ownFieldSlots = !character.isEnemy
+            ? manager.characters.Where(x => x.isEnemy)
+            : manager.characters.Where(x => !x.isEnemy);
+        ownFieldSlots = ownFieldSlots.OrderBy(x => x.slot);
+        manager = null;
+        return ownFieldSlots.ToArray();
+    }
+
     public FieldSlot[] GetFieldSlots()
     {
+        var manager = BattleFieldManager.instance;
         var ownFieldSlots = !character.isEnemy
-            ? BattleFieldManager.instance.playerFieldSlots
-            : BattleFieldManager.instance.opponentFieldSlots;
+            ? manager.playerFieldSlots
+            : manager.opponentFieldSlots;
+        manager = null;
         return ownFieldSlots;
     }
 
     public FieldSlot[] GetOpponentFieldSlots()
     {
+        var manager = BattleFieldManager.instance;
         var opponentFieldSlots = !character.isEnemy
-            ? BattleFieldManager.instance.opponentFieldSlots
-            : BattleFieldManager.instance.playerFieldSlots;
+            ? manager.opponentFieldSlots
+            : manager.playerFieldSlots;
+        manager = null;
         return opponentFieldSlots;
     }
 

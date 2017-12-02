@@ -16,7 +16,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public bool isDrag;
     public bool isEndDrag;
 
-    public delegate void OnDragged(GameObject item, bool isAlternative);
+    public delegate void OnDragged(GameObject item, int index, bool isAlternative);
     public OnDragged onDragged;
 
     public delegate void OnBeginDragEvent(PointerEventData eventData);
@@ -164,6 +164,8 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 lastDraggableIconPosition = draggableIcon.transform.position;
                 DragDropHandler matchItem = null;
                 var isAlternative = false;
+                var matchIndex = 0;
+                var index = 0;
                 foreach (var item in items)
                 {
                     if (RectTransformUtility.RectangleContainsScreenPoint(item.GetComponent<RectTransform>(), position))
@@ -186,8 +188,10 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                             }
                             item.icon.enabled = true;
                             matchItem = item;
+                            matchIndex = index;
                         }
                     }
+                    ++index;
                     item.transform.localScale = Vector3.one;
                     item.GetComponent<Image>().color = originalColor;
                 }
@@ -197,7 +201,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     StartCoroutine(OnSlotMatch(matchItem, icon));
                     if (matchItem.onDragged != null)
                     {
-                        matchItem.onDragged.Invoke(this.gameObject, isAlternative);
+                        matchItem.onDragged.Invoke(this.gameObject, matchIndex, isAlternative);
                     }
                 }
                 else
@@ -217,7 +221,7 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     StartCoroutine(OnSlotMatch(this, null));
                     if (onDragged != null)
                     {
-                        onDragged.Invoke(gameObject, false);
+                        onDragged.Invoke(gameObject, orginalSiblingIndex, false);
                     }
                 }
                 else

@@ -17,7 +17,7 @@ public class TacticItem : MonoBehaviour
         dragDropHandler.onDragged += OnItemDragged;
     }
 
-    void OnItemDragged(GameObject item, bool isAlternative)
+    void OnItemDragged(GameObject item, int index, bool isAlternative)
     {
         abilityItem.SetTacticDisplayOrder();
     }

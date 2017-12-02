@@ -58,10 +58,11 @@ public class BattleFieldManager : MonoBehaviour
     void Run()
     {
         // if character is in a turn
-        if(marathonRunner.isStopped)
+        if (marathonRunner.isStopped)
             return;
         var singleCharacterInTurn = characters.FirstOrDefault(x => x.isTurn);
-        if(singleCharacterInTurn != null){
+        if (singleCharacterInTurn != null)
+        {
             Debug.Log(singleCharacterInTurn.name + " has been turned!");
             marathonRunner.StopRunner();
             singleCharacterInTurn.HandleAbilities();
@@ -77,7 +78,7 @@ public class BattleFieldManager : MonoBehaviour
             character.ClearAllTactics();
             foreach (var skill in character.skills)
             {
-                if(skill.IsNull())
+                if (skill.IsNull())
                     continue;
                 var learnedSkill = character.LearnSkill(skill);
                 character.AddAbility(learnedSkill);
@@ -92,22 +93,39 @@ public class BattleFieldManager : MonoBehaviour
             }
         }
 
-        // Add character into player field slots
         playerFieldSlots = playerField.GetComponentsInChildren<FieldSlot>();
-        var playerCharacters = characters.Where(x => !x.isEnemy).ToArray();
-        for (var i = 0; i < playerCharacters.Count(); i++)
-        {
-            playerFieldSlots[i].AddField(playerCharacters[i]);
-        }
-        playerCharacters = null;
-
-        // Add enemy into enemy field slots
         opponentFieldSlots = opponentField.GetComponentsInChildren<FieldSlot>();
-        var opponentCharacters = characters.Where(x => x.isEnemy).ToArray();
-        for (var i = 0; i < opponentCharacters.Count(); i++)
+
+        // Add character into field slots
+        for (var i = 0; i < characters.Length; i++)
         {
-            opponentFieldSlots[i].AddField(opponentCharacters[i]);
+            AddCharacterToField(characters[i]);
         }
-        opponentCharacters = null;
+    }
+
+    void AddCharacterToField(Character character)
+    {
+        var fieldSlots = character.isEnemy ? opponentFieldSlots : playerFieldSlots;
+        for (var i = 0; i < fieldSlots.Length; i++)
+        {
+            var fieldSlot = fieldSlots[i];
+            if (character.slot == i)
+            {
+                if (!fieldSlot.CanAdd())
+                {
+                    ++character.slot;
+                    if(character.slot == fieldSlots.Length)
+                        character.slot = 0;
+                    fieldSlot = null;
+                    AddCharacterToField(character);
+                    break;
+                }
+                fieldSlot.AddField(character);
+                fieldSlot = null;
+                break;
+            }
+            fieldSlot = null;
+        }
+        fieldSlots = null;
     }
 }

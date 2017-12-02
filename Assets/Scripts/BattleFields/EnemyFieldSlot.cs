@@ -27,7 +27,7 @@ public class EnemyFieldSlot : MonoBehaviour
         icon.enabled = false;
     }
 
-    void OnUpdateSlot(GameObject item, bool isAlternative)
+    void OnUpdateSlot(GameObject item, int index, bool isAlternative)
     {
         var oldFieldSlot = item.GetComponent<EnemyFieldSlot>();
         if (isAlternative)

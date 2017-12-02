@@ -10,56 +10,51 @@ public class DefaultTactic : Tactical
     {
         base.Define();
         priorityPositions = FindPriorityPositions();
-        if(priorityPositions.Length <= 0)
+        if (priorityPositions.Length <= 0)
             return false;
         return true;
     }
 
     int[] FindPriorityPositions()
     {
-        var ownFieldSlots = ability.GetFieldSlots();
-        var opponentFieldSlots = ability.GetOpponentFieldSlots();
-
-        var currentOwnCol = 0;
         var currentOwnRow = 0;
+        var col = 3;
+        var row = 3;
+        var characters = ability.GetCharacters();
+        var opponentCharacters = ability.GetOpponentCharacters();
 
-        for (var i = 0; i < ownFieldSlots.Length; i++)
+        for (var i = 0; i < characters.Length; i++)
         {
-            if (i > 0 && i % 3 == 0)
+            var character = characters[i];
+            if (character == ability.character)
             {
-                ++currentOwnRow;
-                currentOwnCol = 0;
-            }
-            else
-            {
-                ++currentOwnCol;
-            }
-            if (ownFieldSlots[i].character == ability.character)
+                currentOwnRow = Mathf.FloorToInt(character.slot / row);
+                character = null;
                 break;
+            }
+            character = null;
         }
 
-        var index = 3 * currentOwnRow + 2;
         var priorityIndexes = new List<int>();
-        for (var i = 0; i < 9; i++)
+
+        for (var i = 0; i < row; i++)
         {
-            var opponentCharacter = opponentFieldSlots[index].character;
-            if (!opponentCharacter.IsNull() && !opponentCharacter.isDeath)
-            {
-                priorityIndexes.Add(index);
-            }
-            if (index % 3 == 0)
-            {
-                ++currentOwnRow;
-                if (currentOwnRow > 2)
-                    currentOwnRow = 0;
-                index = 3 * currentOwnRow + 2;
-                continue;
-            }
-            --index;
+            var minIndex = row * currentOwnRow;
+            var maxIndex = row * currentOwnRow + (col - 1);
+            var appropriateIndexes = opponentCharacters.Where(x => !x.isDeath && x.slot >= minIndex && x.slot <= maxIndex)
+                .OrderByDescending(x => x.slot)
+                .Select(x => x.slot)
+                .ToArray();
+            if(appropriateIndexes.Length > 0)
+                priorityIndexes.AddRange(appropriateIndexes);
+            ++currentOwnRow;
+            if (currentOwnRow > (row - 1))
+                currentOwnRow = 0;
+            appropriateIndexes = null;
         }
 
-        ownFieldSlots = null;
-        opponentFieldSlots = null;
+        characters = null;
+        opponentCharacters = null;
 
         return priorityIndexes.ToArray();
     }

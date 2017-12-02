@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     [Space]
     public Sprite icon;
     [Space]
+    public int slot;
     public bool isDeath;
     public bool isEnemy;
     public bool isTurn;

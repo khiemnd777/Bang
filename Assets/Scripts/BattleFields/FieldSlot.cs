@@ -26,6 +26,10 @@ public class FieldSlot : MonoBehaviour
         icon.enabled = true;
     }
 
+    public bool CanAdd(){
+        return character.IsNull();
+    }
+
     public void ClearSlot()
     {
         this.character = null;
@@ -48,7 +52,7 @@ public class FieldSlot : MonoBehaviour
         abilityList = null;
     }
 
-    void OnUpdateSlot(GameObject item, bool isAlternative)
+    void OnUpdateSlot(GameObject item, int index, bool isAlternative)
     {
         // inactive priorityIndex
         foreach (var slot in BattleFieldManager.instance.playerFieldSlots)
@@ -66,11 +70,14 @@ public class FieldSlot : MonoBehaviour
             var currentCharacter = character;
             AddField(oldFieldSlot.character);
             oldFieldSlot.AddField(currentCharacter);
+            oldFieldSlot.character.slot = character.slot;
+            character.slot = index;
         }
         else
         {
             AddField(oldFieldSlot.character);
             oldFieldSlot.ClearSlot();
+            character.slot = index;
         }
     }
 }
