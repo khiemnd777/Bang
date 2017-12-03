@@ -68,10 +68,10 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 if (draggableIcon != null)
                     Destroy(draggableIcon.gameObject);
-
+                originalIconScale = icon.transform.localScale;
                 draggableIcon = Instantiate<Image>(icon, position, Quaternion.identity);
                 draggableIcon.sprite = icon.sprite;
-                draggableIcon.transform.localScale = Vector3.one;
+                draggableIcon.transform.localScale = icon.transform.localScale;
                 draggableIcon.transform.SetParent(canvas.transform, false);
             }
         }
@@ -235,13 +235,14 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     IEnumerator OnBeginDragging()
     {
         var fracJourney = 0f;
+        var iconScale = icon.transform.localScale;
         while (fracJourney < 1f)
         {
             var distCovered = (Time.time - startDragTime) * 8f;
             fracJourney = distCovered / dragJourneyLength;
             if (useIcon)
             {
-                icon.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, fracJourney);
+                icon.transform.localScale = Vector3.Lerp(iconScale, Vector3.zero, fracJourney);
             }
             else
             {
@@ -260,9 +261,10 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             fracJourney = distCovered / endDragJourneyLength;
             if (useIcon)
             {
+
                 if (!draggableIcon.IsNull())
                 {
-                    icon.transform.localScale = Vector3.Lerp(Vector3.one * 1.5f, Vector3.one, fracJourney);
+                    icon.transform.localScale = Vector3.Lerp(originalIconScale * 1.5f, originalIconScale, fracJourney);
                     draggableIcon.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, fracJourney);
                     draggableIcon.transform.position = Vector3.Lerp(lastDraggableIconPosition, startPosition, fracJourney);
                 }
@@ -295,8 +297,8 @@ public class DragDropHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             if (useIcon)
             {
                 if (currentIcon.enabled)
-                    currentIcon.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, fracJourney);
-                matchItem.icon.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, fracJourney);
+                    currentIcon.transform.localScale = Vector3.Lerp(Vector3.zero, originalIconScale, fracJourney);
+                matchItem.icon.transform.localScale = Vector3.Lerp(Vector3.zero, originalIconScale, fracJourney);
             }
             else
             {

@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class FieldSlot : MonoBehaviour
 {
     public Image icon;
-    public Image priorityIndex;
+    public bool flip;
+    [Space]
     public Character character;
 
     DragDropHandler dragDropHandler;
@@ -17,6 +18,12 @@ public class FieldSlot : MonoBehaviour
         canvas = GetComponentInParent<Canvas>();
         dragDropHandler = GetComponent<DragDropHandler>();
         dragDropHandler.onDragged += OnUpdateSlot;
+        Flip();
+    }
+
+    void Update()
+    {
+        Flip();
     }
 
     public void AddField(Character character)
@@ -26,7 +33,8 @@ public class FieldSlot : MonoBehaviour
         icon.enabled = true;
     }
 
-    public bool CanAdd(){
+    public bool CanAdd()
+    {
         return character.IsNull();
     }
 
@@ -38,13 +46,13 @@ public class FieldSlot : MonoBehaviour
 
     public void OnShowSkillPanelButtonClick()
     {
-        if(character.IsNull())
+        if (character.IsNull())
             return;
         var abilityList = AbilityList.instance;
         abilityList.Clear();
         foreach (var skill in character.learnedSkills)
         {
-            if(skill.isDefault)
+            if (skill.isDefault)
                 continue;
             abilityList.AddItem(skill);
         }
@@ -54,16 +62,6 @@ public class FieldSlot : MonoBehaviour
 
     void OnUpdateSlot(GameObject item, int index, bool isAlternative)
     {
-        // inactive priorityIndex
-        foreach (var slot in BattleFieldManager.instance.playerFieldSlots)
-        {
-            slot.priorityIndex.gameObject.SetActive(false);
-        }
-        foreach (var slot in BattleFieldManager.instance.opponentFieldSlots)
-        {
-            slot.priorityIndex.gameObject.SetActive(false);
-        }
-
         var oldFieldSlot = item.GetComponent<FieldSlot>();
         if (isAlternative)
         {
@@ -78,6 +76,21 @@ public class FieldSlot : MonoBehaviour
             AddField(oldFieldSlot.character);
             oldFieldSlot.ClearSlot();
             character.slot = index;
+        }
+        BattleFieldManager.instance.ArrageSquad();
+    }
+
+    void Flip()
+    {
+        if(character.IsNull())
+            return;
+        if (!flip)
+            return;
+        if (character.isEnemy)
+        {
+            var scale = icon.transform.localScale;
+            var deltaFlip = scale.x > 0 ? -1 : 1;
+            icon.transform.localScale = new Vector3(scale.x * deltaFlip, scale.y, scale.z);
         }
     }
 }

@@ -41,6 +41,11 @@ public class BattleFieldManager : MonoBehaviour
     public MarathonRunner marathonRunner;
 
     [System.NonSerialized]
+    public CharacterField[] playerFields;
+    [System.NonSerialized]
+    public CharacterField[] opponentFields;
+
+    [System.NonSerialized]
     public FieldSlot[] playerFieldSlots;
     [System.NonSerialized]
     public FieldSlot[] opponentFieldSlots;
@@ -53,6 +58,11 @@ public class BattleFieldManager : MonoBehaviour
     void Update()
     {
         Run();
+
+        if(Input.GetButtonDown("Arrange Squad")){
+            playerField.gameObject.SetActive(!playerField.gameObject.activeSelf);
+            opponentField.gameObject.SetActive(!opponentField.gameObject.activeSelf);
+        }
     }
 
     void Run()
@@ -96,6 +106,9 @@ public class BattleFieldManager : MonoBehaviour
         playerFieldSlots = playerField.GetComponentsInChildren<FieldSlot>();
         opponentFieldSlots = opponentField.GetComponentsInChildren<FieldSlot>();
 
+        playerFields = playerField3D.GetComponentsInChildren<CharacterField>();
+        opponentFields = opponentField3D.GetComponentsInChildren<CharacterField>();
+
         // Add character into field slots
         for (var i = 0; i < characters.Length; i++)
         {
@@ -103,12 +116,28 @@ public class BattleFieldManager : MonoBehaviour
         }
     }
 
+    public void ArrageSquad(){
+        foreach(var field in playerFields){
+            field.ClearSlot();
+        }
+        foreach(var field in opponentFields){
+            field.ClearSlot();
+        }
+        foreach(var character in characters){
+            var characterFields = character.isEnemy ? opponentFields : playerFields;
+            characterFields[character.slot].AddField(character);
+            characterFields = null;
+        }
+    }
+
     void AddCharacterToField(Character character)
     {
         var fieldSlots = character.isEnemy ? opponentFieldSlots : playerFieldSlots;
+        var characterFields = character.isEnemy ? opponentFields : playerFields;
         for (var i = 0; i < fieldSlots.Length; i++)
         {
             var fieldSlot = fieldSlots[i];
+            var characterField = characterFields[i];
             if (character.slot == i)
             {
                 if (!fieldSlot.CanAdd())
@@ -117,11 +146,16 @@ public class BattleFieldManager : MonoBehaviour
                     if(character.slot == fieldSlots.Length)
                         character.slot = 0;
                     fieldSlot = null;
+                    characterField = null;
                     AddCharacterToField(character);
                     break;
                 }
                 fieldSlot.AddField(character);
+                characterField.AddField(character);
+
                 fieldSlot = null;
+                characterField = null;
+
                 break;
             }
             fieldSlot = null;
